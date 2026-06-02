@@ -1,7 +1,7 @@
 import React from "react";
 import StatusIcon from "../ui/StatusIcon";
 import DiffBadge from "../ui/DiffBadge";
-import "./problems.css";
+import "./DSAproblems.css";
 
 const ProblemRow = ({ problem, onClick }) => (
   <tr className="problem-row" onClick={() => onClick(problem)}>

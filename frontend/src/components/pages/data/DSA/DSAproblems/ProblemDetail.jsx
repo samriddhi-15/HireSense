@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DiffBadge from "../ui/DiffBadge";
-import "./problems.css";
+import "./DSAProblems.css";
 
 const DUMMY_CODE = `def twoSum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []`;
 
