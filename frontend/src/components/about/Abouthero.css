@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ─── Section ─── */
+.ah {
+  position: relative;
+  background: #fdf6ee;
+  padding: 120px 80px 80px;
+  text-align: center;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── Blobs ─── */
+.ah__blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px); pointer-events: none; z-index: 0;
+}
+.ah__blob--1 {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(245,166,35,0.18), transparent);
+  top: -120px; left: -100px;
+}
+.ah__blob--2 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(74,159,213,0.14), transparent);
+  top: -80px; right: -80px;
+}
+.ah__blob--3 {
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(245,166,35,0.1), transparent);
+  bottom: 100px; left: 50%; transform: translateX(-50%);
+}
+
+.ah__noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  background-size: 200px; pointer-events: none; z-index: 0;
+}
+
+/* ─── Grid lines ─── */
+.ah__gridlines {
+  position: absolute; inset: 0;
+  display: flex; justify-content: space-between;
+  pointer-events: none; z-index: 0; padding: 0 60px;
+}
+.ah__gridline {
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(245,166,35,0.1) 30%,
+    rgba(74,159,213,0.07) 70%,
+    transparent
+  );
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition:
+    opacity 1s ease calc(var(--gi) * 0.1s),
+    transform 1.2s ease calc(var(--gi) * 0.1s);
+}
+.ah--visible .ah__gridline { opacity: 1; transform: scaleY(1); }
+
+/* ─── Badge ─── */
+.ah__badge {
+  position: relative; z-index: 1;
+  display: inline-block;
+  font-size: 11.5px; font-weight: 600;
+  letter-spacing: 1.5px; color: #f5a623;
+  text-transform: uppercase;
+  background: rgba(245,166,35,0.1);
+  border: 1px solid rgba(245,166,35,0.3);
+  padding: 6px 20px; border-radius: 50px;
+  margin-bottom: 24px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+}
+.ah--visible .ah__badge { opacity: 1; transform: translateY(0); }
+
+/* ─── Heading ─── */
+.ah__heading {
+  position: relative; z-index: 1;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900; color: #1a1a1a;
+  line-height: 1.08; margin-bottom: 22px;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s ease 0.2s, transform 0.75s ease 0.2s;
+}
+.ah--visible .ah__heading { opacity: 1; transform: translateY(0); }
+
+.ah__heading-accent {
+  color: #f5a623;
+  position: relative; display: inline-block;
+}
+.ah__heading-accent::after {
+  content: '';
+  position: absolute; bottom: 4px; left: 0;
+  width: 0; height: 5px;
+  background: linear-gradient(90deg, #f5a623, #4a9fd5);
+  border-radius: 3px;
+  transition: width 1.1s cubic-bezier(0.22,1,0.36,1) 0.85s;
+}
+.ah--visible .ah__heading-accent::after { width: 100%; }
+
+/* ─── Subtext ─── */
+.ah__sub {
+  position: relative; z-index: 1;
+  max-width: 580px; margin: 0 auto 56px;
+  font-size: 16.5px; color: #888; line-height: 1.8;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.65s ease 0.38s, transform 0.65s ease 0.38s;
+}
+.ah--visible .ah__sub { opacity: 1; transform: translateY(0); }
+
+/* ─── Image Row ─── */
+.ah__img-row {
+  position: relative; z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 0;
+  padding: 0 20px;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.5s,
+              transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.5s;
+}
+.ah--visible .ah__img-row { opacity: 1; transform: translateY(0); }
+
+/* ─── Image Cards ─── */
+.ah__img-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 20px 60px rgba(46,35,24,0.18);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.35s ease;
+}
+.ah__img-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 32px 80px rgba(46,35,24,0.24);
+}
+
+.ah__img-card--lg {
+  width: 460px; height: 280px;
+  border-radius: 24px;
+  z-index: 2;
+  /* Slight lift so center card overlaps side cards */
+  margin-bottom: 20px;
+}
+
+.ah__img-card--sm {
+  width: 260px; height: 200px;
+  border-radius: 18px;
+}
+
+/* First sm card tilts left */
+.ah__img-card--sm:first-child {
+  transform: rotate(-2.5deg) translateY(10px);
+}
+.ah__img-card--sm:first-child:hover {
+  transform: rotate(-1deg) translateY(-6px) scale(1.02);
+}
+
+/* Last sm card tilts right */
+.ah__img-card--sm:last-child {
+  transform: rotate(2.5deg) translateY(10px);
+}
+.ah__img-card--sm:last-child:hover {
+  transform: rotate(1deg) translateY(-6px) scale(1.02);
+}
+
+/* ─── Image itself ─── */
+.ah__img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.55s ease;
+}
+.ah__img-card:hover .ah__img { transform: scale(1.06); }
+
+/* ─── Gradient overlay on each image ─── */
+.ah__img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(46,35,24,0.55) 0%,
+    rgba(46,35,24,0.1) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ─── Tag chip on each image ─── */
+.ah__img-tag {
+  position: absolute; bottom: 14px; left: 14px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 12px; font-weight: 600;
+  padding: 6px 14px; border-radius: 50px;
+  letter-spacing: 0.3px;
+  transition: background 0.3s ease;
+}
+.ah__img-card:hover .ah__img-tag {
+  background: rgba(245,166,35,0.35);
+  border-color: rgba(245,166,35,0.5);
+}
+
+/* ─── Stats strip ─── */
+.ah__stats {
+  position: relative; z-index: 1;
+  display: flex; justify-content: center;
+  gap: 0; flex-wrap: wrap;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(46,35,24,0.1);
+  margin: 32px 20px 0;
+  overflow: hidden;
+}
+
+.ah__stat {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 28px 56px;
+  border-right: 1px solid rgba(0,0,0,0.07);
+  flex: 1;
+  min-width: 160px;
+  position: relative;
+
+  opacity: 0; transform: translateY(24px);
+  transition:
+    opacity 0.6s ease calc(var(--si) * 0.13s + 0.6s),
+    transform 0.6s cubic-bezier(0.22,1,0.36,1) calc(var(--si) * 0.13s + 0.6s);
+}
+.ah__stat:last-child { border-right: none; }
+.ah--visible .ah__stat { opacity: 1; transform: translateY(0); }
+
+/* Hover glow on each stat cell */
+.ah__stat::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(245,166,35,0.06), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.ah__stat:hover::before { opacity: 1; }
+
+.ah__stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem; font-weight: 900;
+  color: #1a1a1a; line-height: 1;
+  letter-spacing: -1px;
+  /* Number pulses gently when it finishes counting */
+  animation: none;
+}
+.ah--visible .ah__stat-val {
+  animation: statPop 0.4s cubic-bezier(0.34,1.56,0.64,1) calc(var(--si) * 0.13s + 2.5s) both;
+}
+@keyframes statPop {
+  0%  { transform: scale(1); }
+  50% { transform: scale(1.08); color: #f5a623; }
+  100%{ transform: scale(1); color: #1a1a1a; }
+}
+
+.ah__stat-label {
+  font-size: 12.5px; color: #aaa; font-weight: 500;
+  margin-top: 5px; letter-spacing: 0.3px;
+  text-transform: uppercase; font-size: 11px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .ah { padding: 100px 32px 60px; }
+  .ah__img-card--lg  { width: 320px; height: 210px; }
+  .ah__img-card--sm  { width: 180px; height: 150px; }
+  .ah__stat { padding: 22px 24px; }
+}
+@media (max-width: 640px) {
+  .ah { padding: 90px 18px 50px; }
+  .ah__img-row { flex-direction: column; align-items: center; }
+  .ah__img-card--sm { width: 90%; height: 180px; }
+  .ah__img-card--sm:first-child,
+  .ah__img-card--sm:last-child { transform: none; }
+  .ah__img-card--lg  { width: 90%; height: 220px; margin-bottom: 0; }
+  .ah__stats { flex-direction: column; }
+  .ah__stat { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); padding: 18px; }
+}

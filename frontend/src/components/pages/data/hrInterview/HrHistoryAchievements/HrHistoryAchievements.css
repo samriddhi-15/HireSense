@@ -1,0 +1,167 @@
+.ha-section {
+    padding: 48px 0 80px;
+    position: relative;
+    z-index: 1;
+}
+
+.ha-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+}
+
+.streak-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #f5a623;
+    line-height: 1;
+}
+
+.streak-unit {
+    font-size: 1.1rem;
+    margin-left: 4px;
+    color: #1a1a1a;
+}
+
+.streak-sub {
+    font-size: 12.5px;
+    color: #bbb;
+    margin-bottom: 12px;
+}
+
+.streak-dots {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.sdot-sq {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.07);
+}
+
+.sd-done {
+    background: linear-gradient(135deg, #f5a623, #e8920f);
+}
+
+.goal-row {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 14px;
+}
+
+.goal-item {
+    flex: 1;
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 0 12px;
+}
+
+.goal-item:first-child {
+    padding-left: 0;
+}
+
+.goal-item:last-child {
+    border-right: none;
+}
+
+.goal-label {
+    font-size: 10.5px;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.goal-val {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 3px;
+}
+
+.ach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.ach-item {
+    padding: 12px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0.45;
+    filter: grayscale(1);
+    transition: all 0.25s;
+}
+
+.ach-earned {
+    opacity: 1;
+    filter: none;
+    border-color: rgba(245, 166, 35, 0.25);
+    background: rgba(245, 166, 35, 0.03);
+}
+
+.ach-earned:hover {
+    border-color: #f5a623;
+    transform: translateY(-2px);
+}
+
+.ach-icon {
+    font-size: 22px;
+}
+
+.ach-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.ach-desc {
+    font-size: 11px;
+    color: #bbb;
+    line-height: 1.4;
+}
+
+.lb-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.lb-row:last-child {
+    border-bottom: none;
+}
+
+.lb-you {
+    background: rgba(245, 166, 35, 0.06);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin: 0 -12px;
+}
+
+.lb-medal {
+    font-size: 18px;
+}
+
+.lb-name {
+    flex: 1;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.lb-xp {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #f5a623;
+}

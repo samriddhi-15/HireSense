@@ -1,0 +1,123 @@
+.timeline-section {
+    padding: 48px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.tl-container {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: #fff;
+    border-radius: 24px;
+    border: 1.5px solid rgba(0, 0, 0, .07);
+    padding: 32px 40px;
+    box-shadow: 0 8px 32px rgba(46, 35, 24, .07);
+}
+
+.tl-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+}
+
+.tl-connector {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 0, 0, .08);
+    z-index: 0;
+}
+
+.tl-connector-done {
+    background: linear-gradient(90deg, #f5a623, #e8920f);
+}
+
+.tl-dot-wrap {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 10px;
+}
+
+.tl-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f0ebe4;
+    border: 2px solid rgba(0, 0, 0, .1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #aaa;
+}
+
+.tl-done .tl-dot {
+    background: #f5a623;
+    border-color: #f5a623;
+    color: #fff;
+}
+
+.tl-active .tl-dot {
+    background: #1a1a1a;
+    border-color: #f5a623;
+    color: #f5a623;
+}
+
+.tl-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #888;
+    text-align: center;
+}
+
+.tl-status {
+    font-size: 11px;
+    color: #ccc;
+    margin-top: 3px;
+    text-align: center;
+}
+
+.tl-done .tl-label {
+    color: #1a1a1a;
+}
+
+.tl-active .tl-label {
+    color: #f5a623;
+}
+
+.dashboard-actions {
+    display: flex;
+    justify-content: end;
+    margin: 20px;
+}
+
+.timeline-progress {
+    width: 100%;
+    height: 14px;
+    background: #e7e7e7;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 20px 0 8px;
+}
+
+.timeline-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg,
+            #f5a623,
+            #ffcb57);
+    transition: width 0.6s ease;
+}
+
+.timeline-progress-text {
+    text-align: center;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 20px;
+}   

@@ -1,0 +1,97 @@
+.fe-mock-sidebar-panel {
+    background: radial-gradient(circle at 10% 10%, rgba(74, 159, 213, 0.1), transparent), #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fe-mock-avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.fe-mock-ai-orb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue), #22c55e);
+    box-shadow: 0 0 16px rgba(74, 159, 213, 0.4);
+    animation: orbPulse 3s infinite ease-in-out;
+}
+
+@keyframes orbPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+.fe-mock-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.fe-mock-status-pill {
+    font-size: 11px;
+    color: #22c55e;
+    display: block;
+    margin-top: 2px;
+    font-weight: 500;
+}
+
+.fe-mock-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.fe-mock-stats-box {
+    background: #f9f5f0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.fe-mstat-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+}
+
+.fe-mstat-item span {
+    color: var(--text-muted);
+}
+
+.fe-mstat-item strong {
+    color: var(--text-main);
+    font-family: monospace;
+}
+
+.fe-mock-btn {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 50px;
+    border: none;
+    background: var(--accent-blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 4px 12px rgba(74, 159, 213, 0.2);
+}
+
+.fe-mock-btn:hover {
+    background: #1e6695;
+}

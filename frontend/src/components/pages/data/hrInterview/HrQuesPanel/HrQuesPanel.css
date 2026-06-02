@@ -1,0 +1,167 @@
+.qs-section {
+    padding: 28px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.qs-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.qs-left-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qs-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #f5a623;
+    background: rgba(245, 166, 35, 0.1);
+    padding: 4px 12px;
+    border-radius: 50px;
+}
+
+.qs-cat-chip {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #888;
+    background: #f9f5f0;
+    padding: 4px 12px;
+    border-radius: 50px;
+}
+
+.qs-right-meta {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #f9f5f0;
+    border: 1.5px solid rgba(0, 0, 0, 0.07);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+}
+
+.icon-btn:hover {
+    border-color: #f5a623;
+    background: rgba(245, 166, 35, 0.08);
+}
+
+.bookmarked {
+    background: rgba(245, 166, 35, 0.15);
+    border-color: #f5a623;
+}
+
+.qs-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.62;
+    margin-bottom: 20px;
+}
+
+.hint-box {
+    background: rgba(245, 166, 35, 0.06);
+    border: 1px solid rgba(245, 166, 35, 0.2);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 18px;
+}
+
+.hb-head {
+    font-size: 12px;
+    font-weight: 700;
+    color: #f5a623;
+    margin-bottom: 7px;
+}
+
+.hint-box p {
+    font-size: 13.5px;
+    color: #666;
+    line-height: 1.65;
+}
+
+.star-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.star-mini-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #f9f5f0;
+    border-radius: 12px;
+    border-left: 3px solid;
+}
+
+.smi-key {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1;
+    min-width: 20px;
+}
+
+.smi-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.smi-desc {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+    line-height: 1.5;
+}
+
+.qs-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.qs-dots {
+    display: flex;
+    gap: 7px;
+}
+
+.qdot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e0d6cc;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.qd-active {
+    background: #f5a623;
+    transform: scale(1.3);
+}
+
+.qd-done {
+    background: #4a9fd5;
+}

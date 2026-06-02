@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ─── Section ─── */
+.hiw {
+  position: relative;
+  background-color: #fdf6ee;
+  padding: 110px 80px 90px;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── Blobs ─── */
+.hiw__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+.hiw__blob--1 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #fcd29f, #f5a623);
+  bottom: -80px; left: -80px;
+}
+.hiw__blob--2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, #aee8f5, #4a9fd5);
+  top: -60px; right: 100px;
+}
+
+/* ─── Header ─── */
+.hiw__header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 72px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.hiw--visible .hiw__header {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hiw__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: #f5a623;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hiw__heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.hiw__heading-accent {
+  color: #f5a623;
+  position: relative;
+}
+.hiw__heading-accent::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, #f5a623, #4a9fd5);
+  border-radius: 2px;
+}
+.hiw__subtext {
+  font-size: 15px;
+  color: #575454;
+  line-height: 1.7;
+}
+
+/* ─── Steps Row ─── */
+.hiw__steps {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 48px;
+}
+
+/* ─── Single Step ─── */
+.hiw__step {
+  flex: 1;
+  max-width: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 36px 20px 28px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.06);
+  position: relative;
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(48px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22,1,0.36,1) calc(var(--i) * 0.15s),
+    transform 0.65s cubic-bezier(0.22,1,0.36,1) calc(var(--i) * 0.15s),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.hiw--visible .hiw__step {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hiw__step--active,
+.hiw__step:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 52px rgba(0,0,0,0.09);
+}
+
+/* ─── Step Number Badge ─── */
+.hiw__step-num {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  transition: background 0.3s ease;
+}
+
+/* ─── Icon Circle ─── */
+.hiw__step-icon-wrap {
+  position: relative;
+  width: 72px; height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hiw__step-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0.25;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.hiw__step--active .hiw__step-ring,
+.hiw__step:hover .hiw__step-ring {
+  opacity: 0.6;
+  transform: scale(1.15);
+  animation: pulseRing 1.6s ease infinite;
+}
+.hiw__step-icon {
+  font-size: 30px;
+  width: 60px; height: 60px;
+  background: rgba(245,166,35,0.09);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease;
+  z-index: 1;
+}
+.hiw__step--active .hiw__step-icon,
+.hiw__step:hover .hiw__step-icon {
+  transform: rotate(-10deg) scale(1.18);
+  background: rgba(245,166,35,0.18);
+}
+
+/* ─── Step Title ─── */
+.hiw__step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+/* ─── Step Desc ─── */
+.hiw__step-desc {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6f6b6b;
+  line-height: 1.65;
+}
+
+/* ─── Progress Bar ─── */
+.hiw__step-bar {
+  width: 100%;
+  height: 3px;
+  background: #f0ebe4;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.hiw__step-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #4a9fd5);
+  border-radius: 2px;
+  transition: width 0.05s linear;
+}
+.hiw__step--active .hiw__step-bar-fill {
+  width: 100%;
+  transition: width 2.2s linear;
+}
+
+/* ─── Connector ─── */
+.hiw__connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 52px;
+  width: 52px;
+  flex-shrink: 0;
+  gap: 4px;
+  position: relative;
+}
+.hiw__connector-line {
+  width: 36px;
+  height: 2px;
+  background: #e8ddd0;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.hiw__connector-line::after {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #f5a623, #4a9fd5);
+  transition: left 0.5s ease;
+}
+.hiw__connector--done .hiw__connector-line::after {
+  left: 0;
+}
+.hiw__connector-arrow {
+  font-size: 20px;
+  color: #ccc;
+  line-height: 1;
+  transition: color 0.4s ease, transform 0.4s ease;
+}
+.hiw__connector--done .hiw__connector-arrow {
+  color: #f5a623;
+  transform: scale(1.3);
+}
+
+/* ─── Dots ─── */
+.hiw__dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 52px;
+}
+.hiw__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #e0d6cc;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, width 0.3s ease;
+}
+.hiw__dot--active {
+  background: #f5a623;
+  width: 28px;
+  border-radius: 50px;
+  transform: scale(1);
+}
+
+/* ─── CTA ─── */
+.hiw__cta {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease 0.6s, transform 0.7s ease 0.6s;
+}
+.hiw--visible .hiw__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hiw__cta-btn {
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #f5a623, #e8920f);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 10px 30px rgba(245, 166, 35, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+.hiw__cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(245, 166, 35, 0.45);
+}
+.hiw__cta-note {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: #bbb;
+  letter-spacing: 0.3px;
+}
+
+/* ─── Keyframes ─── */
+@keyframes pulseRing {
+  0%   { transform: scale(1.1);  opacity: 0.5; }
+  50%  { transform: scale(1.25); opacity: 0.2; }
+  100% { transform: scale(1.1);  opacity: 0.5; }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .hiw {
+    padding: 80px 32px;
+  }
+  .hiw__steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .hiw__step {
+    max-width: 100%;
+    width: 100%;
+  }
+  .hiw__connector {
+    padding-top: 0;
+    width: auto;
+    flex-direction: row;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .hiw { padding: 60px 20px; }
+}   

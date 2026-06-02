@@ -1,0 +1,112 @@
+.feedback-sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: stretch;
+}
+
+.fs-toggle {
+    padding: 12px 8px;
+    border-radius: 12px 0 0 12px;
+    background: #1a1a1a;
+    color: #f5a623;
+    border: none;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    writing-mode: vertical-rl;
+    letter-spacing: 1px;
+}
+
+.fs-content {
+    width: 240px;
+    background: #1a1a1a;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.fs-score-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+}
+
+.fs-score-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(245, 237, 224, .35);
+}
+
+.fs-score-grade {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f5a623;
+}
+
+.fs-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fs-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fs-metric-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fs-metric-label {
+    font-size: 11.5px;
+    color: rgba(245, 237, 224, .5);
+}
+
+.fs-metric-val {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.fs-suggestion {
+    background: rgba(245, 166, 35, .08);
+    border: 1px solid rgba(245, 166, 35, .15);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.fs-sug-head {
+    font-size: 11px;
+    font-weight: 700;
+    color: #f5a623;
+    margin-bottom: 8px;
+}
+
+.fs-sug-list {
+    padding-left: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.fs-sug-list li {
+    font-size: 11.5px;
+    color: rgba(245, 237, 224, .5);
+    line-height: 1.5;
+}

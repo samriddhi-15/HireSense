@@ -1,0 +1,117 @@
+.comp-section {
+    padding: 48px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.comp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.comp-card {
+    background: #fff;
+    border-radius: 22px;
+    border: 1.5px solid rgba(0, 0, 0, 0.06);
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--ci) * 0.08s + 0.1s),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--ci) * 0.08s + 0.1s),
+        border-color 0.3s, box-shadow 0.3s;
+}
+
+.comp-visible .comp-card {
+    opacity: 1;
+    transform: none;
+}
+
+.comp-card:hover {
+    border-color: #f5a623;
+    box-shadow: 0 14px 42px rgba(245, 166, 35, 0.1);
+    transform: translateY(-4px);
+}
+
+.comp-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.7) 50%, transparent 75%);
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: transform 0.6s ease;
+}
+
+.comp-card:hover .comp-shimmer {
+    transform: translateX(110%);
+}
+
+.comp-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.comp-emoji {
+    font-size: 26px;
+}
+
+.comp-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.comp-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.comp-row:last-of-type {
+    border-bottom: none;
+}
+
+.comp-lbl {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: #bbb;
+}
+
+.comp-val {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.45;
+}
+
+.comp-btn {
+    align-self: flex-start;
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(245, 166, 35, 0.2);
+    background: #f9f5f0;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #f5a623;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.25s;
+    margin-top: auto;
+}
+
+.comp-btn:hover {
+    background: #f5a623;
+    color: #fff;
+}

@@ -1,0 +1,86 @@
+.prog-section {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 48px 60px;
+}
+
+.prog-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.prog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.prog-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    cursor: default;
+    opacity: 0;
+    transform: translateY(36px);
+    animation: cardIn .6s cubic-bezier(.22, 1, .36, 1) calc(var(--pi)*.14s + .2s) forwards;
+}
+
+.prog-card:hover {
+    border-color: var(--pc);
+    box-shadow: 0 16px 48px rgba(245, 166, 35, .1);
+    transform: translateY(-4px);
+}
+
+.prog-card-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, .65) 50%, transparent 75%);
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: transform .65s ease;
+}
+
+.prog-card:hover .prog-card-shimmer {
+    transform: translateX(110%);
+}
+
+.prog-icon {
+    font-size: 32px;
+    margin-bottom: 4px;
+}
+
+.prog-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.prog-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+}
+
+.prog-sub {
+    font-size: 11.5px;
+    color: #bbb;
+}
+
+.prog-bar-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 0, 0, .06);
+    border-radius: 50px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.prog-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    opacity: .8;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}

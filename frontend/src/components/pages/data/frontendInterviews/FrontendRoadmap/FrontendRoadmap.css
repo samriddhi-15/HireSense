@@ -1,0 +1,145 @@
+.fe-roadmap-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 16px;
+}
+
+.fe-roadmap-item {
+    display: flex;
+    gap: 24px;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 16px;
+    transition: background 0.2s;
+}
+
+.fe-roadmap-item:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.fe-roadmap-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.fe-node-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    z-index: 2;
+}
+
+.fe-node-line {
+    position: absolute;
+    top: 32px;
+    bottom: -20px;
+    width: 2px;
+    background: rgba(0, 0, 0, 0.06);
+    z-index: 1;
+}
+
+.fe-roadmap-content {
+    flex: 1;
+    background: #fff;
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.fe-rm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.fe-rm-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.fe-rm-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.fe-rm-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 50px;
+}
+
+.fe-rm-easy {
+    background: rgba(34, 197, 94, 0.1);
+    color: #15803d;
+}
+
+.fe-rm-medium {
+    background: rgba(245, 166, 35, 0.1);
+    color: #b45309;
+}
+
+.fe-rm-hard {
+    background: rgba(239, 68, 68, 0.1);
+    color: #b91c1c;
+}
+
+.fe-rm-pct {
+    font-size: 12px;
+    font-family: monospace;
+    color: var(--text-muted);
+}
+
+/* Progressive Visual States */
+.fe-rm-completed .fe-node-circle {
+    border-color: #22c55e;
+    background: #22c55e;
+    color: #fff;
+}
+
+.fe-rm-completed .fe-node-line {
+    background: #22c55e;
+}
+
+.fe-rm-active .fe-node-circle {
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
+}
+
+.fe-rm-details {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.06);
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.fe-rm-skeleton {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fe-skeleton-line {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+}

@@ -1,0 +1,146 @@
+.fe-playground {
+    background: #1e1e1e;
+    border-color: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+.fe-play-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.fe-play-sub {
+    font-size: 13px;
+    color: #888;
+}
+
+.fe-play-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.fe-play-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.fe-play-select {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12.5px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.fe-play-btn {
+    padding: 10px 22px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.fe-play-run {
+    background: linear-gradient(135deg, var(--accent-amber), var(--accent-amber-dark));
+    color: #fff;
+}
+
+.fe-play-run:hover {
+    transform: translateY(-1px);
+}
+
+.fe-play-run:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Editor Construction */
+.fe-play-split {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 20px;
+    min-height: 280px;
+}
+
+@media (max-width: 868px) {
+    .fe-play-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+.fe-play-editor-panel {
+    display: flex;
+    background: #161616;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+}
+
+.fe-play-lines {
+    padding: 16px 12px;
+    color: rgba(255, 255, 255, 0.15);
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: right;
+    user-select: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.fe-play-textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: #ce9178;
+    line-height: 1.7;
+}
+
+.fe-play-console {
+    background: #0c0c0c;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.fe-console-title {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #555;
+    letter-spacing: 0.5px;
+}
+
+.fe-console-body {
+    flex: 1;
+    padding: 16px;
+    margin: 0;
+    font-family: monospace;
+    font-size: 12px;
+    color: #4ade80;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}

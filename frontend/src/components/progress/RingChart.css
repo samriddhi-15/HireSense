@@ -1,0 +1,15 @@
+.rc-svg {
+    display: block;
+}
+
+.rc-svg__text {
+    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+}
+
+@media (max-width: 400px) {
+    .rc-svg {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}   

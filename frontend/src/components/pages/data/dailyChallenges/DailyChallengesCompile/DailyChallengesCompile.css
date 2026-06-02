@@ -1,0 +1,306 @@
+/* GLOBAL CONFIGURATION & APP LAYOUT SETUP */
+.dcp-root {
+    min-height: 100vh;
+    background: #fdf6ee;
+    font-family: 'DM Sans', sans-serif;
+    color: #1a1a1a;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ─── AMBIENT BACKGROUND BLOBS ─── */
+.dcp-bg-blobs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-b1 {
+    position: absolute;
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 166, 35, .11), transparent);
+    top: -140px;
+    left: -100px;
+    filter: blur(90px);
+    animation: blobDrift 20s ease-in-out infinite alternate;
+}
+
+.bg-b2 {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74, 159, 213, .09), transparent);
+    bottom: -80px;
+    right: -80px;
+    filter: blur(80px);
+    animation: blobDrift 25s ease-in-out infinite alternate-reverse;
+}
+
+.bg-b3 {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 166, 35, .06), transparent);
+    top: 55%;
+    left: 46%;
+    filter: blur(70px);
+    animation: blobDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes blobDrift {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(30px, 20px) scale(1.05);
+    }
+}
+
+/* ─── BASE REUSABLE UTILITIES ─── */
+.glass-card {
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(18px);
+    border: 1.5px solid rgba(0, 0, 0, .07);
+    border-radius: 24px;
+    padding: 28px 26px;
+    position: relative;
+    overflow: hidden;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #f5a623;
+    background: rgba(245, 166, 35, .1);
+    border: 1px solid rgba(245, 166, 35, .28);
+    padding: 5px 18px;
+    border-radius: 50px;
+    margin-bottom: 14px;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 900;
+    color: #1a1a1a;
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+
+.acc {
+    color: #f5a623;
+}
+
+.btn-primary {
+    padding: 13px 28px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #f5a623, #e8920f);
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .25s;
+    box-shadow: 0 6px 22px rgba(245, 166, 35, .35);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .22) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform .55s ease;
+}
+
+.btn-primary:hover::before {
+    transform: translateX(100%);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(245, 166, 35, .45);
+}
+
+.btn-outline {
+    padding: 13px 22px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(0, 0, 0, .1);
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .25s;
+}
+
+.btn-outline:hover {
+    border-color: #f5a623;
+    color: #f5a623;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(0, 0, 0, .1);
+    background: rgba(255, 255, 255, .9);
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .25s;
+    margin: 24px 0 0 44px;
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(8px);
+}
+
+.back-btn:hover {
+    border-color: #f5a623;
+    color: #f5a623;
+    transform: translateX(-2px);
+}
+
+.cp-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, .6);
+    flex-shrink: 0;
+}
+
+.pulse {
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgba(74, 222, 128, .6);
+    }
+
+    50% {
+        box-shadow: 0 0 16px rgba(74, 222, 128, .9);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+@keyframes cardIn {
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+/* ─── RESPONSIVE SYSTEM LAYOUT ─── */
+@media(max-width:1100px) {
+    .lcs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .topics-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .list-hero,
+    .list-cards-section,
+    .cp-hero,
+    .cp-card-section,
+    .prog-section,
+    .mot-section,
+    .topics-section {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+@media(max-width:760px) {
+
+    .lcs-grid,
+    .prog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topics-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .list-hero,
+    .list-cards-section,
+    .cp-hero,
+    .cp-card-section,
+    .prog-section,
+    .mot-section,
+    .topics-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .lh-title,
+    .cp-hero-title {
+        font-size: 2.8rem;
+    }
+
+    .cp-card-header {
+        flex-direction: column;
+    }
+
+    .cp-time-ring {
+        align-self: flex-end;
+    }
+
+    .cp-card-actions {
+        flex-direction: column;
+    }
+
+    .mot-card {
+        padding: 32px 28px;
+    }
+
+    .back-btn {
+        margin-left: 20px;
+    }
+}
+
+@media(max-width:480px) {
+    .topics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lh-chips {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

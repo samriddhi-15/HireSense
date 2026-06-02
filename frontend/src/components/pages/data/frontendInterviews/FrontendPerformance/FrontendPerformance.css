@@ -1,0 +1,52 @@
+.fe-analytics-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .fe-analytics-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+.fe-analytics-card {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.fe-an-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-light);
+    letter-spacing: 0.8px;
+}
+
+.fe-an-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin: 4px 0;
+}
+
+.fe-an-track {
+    height: 3px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.fe-an-fill {
+    height: 100%;
+    width: 70%;
+    background: var(--accent-bar, var(--accent-amber));
+    border-radius: 4px;
+}

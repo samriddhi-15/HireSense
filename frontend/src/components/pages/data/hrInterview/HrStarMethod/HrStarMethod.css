@@ -1,0 +1,110 @@
+.star-section {
+    padding: 48px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.star-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.star-card {
+    background: #fff;
+    border-radius: 22px;
+    border: 1.5px solid rgba(0, 0, 0, 0.06);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.star-card:hover {
+    border-color: var(--sc);
+    box-shadow: 0 14px 42px rgba(245, 166, 35, 0.1);
+    transform: translateY(-3px);
+}
+
+.star-card-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.7) 50%, transparent 75%);
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: transform 0.6s ease;
+}
+
+.star-card:hover .star-card-shimmer {
+    transform: translateX(110%);
+}
+
+.star-open {
+    border-color: var(--sc) !important;
+    box-shadow: 0 14px 42px rgba(245, 166, 35, 0.12) !important;
+}
+
+.star-key {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.star-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.star-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.star-example {
+    background: #f9f5f0;
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+
+.se-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #f5a623;
+    margin-bottom: 6px;
+}
+
+.se-text {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.star-expand {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #bbb;
+    transition: color 0.25s;
+}
+
+.star-card:hover .star-expand {
+    color: #f5a623;
+}
+
+.template-text {
+    font-size: 14.5px;
+    color: #555;
+    line-height: 1.85;
+    padding: 10px 0;
+}

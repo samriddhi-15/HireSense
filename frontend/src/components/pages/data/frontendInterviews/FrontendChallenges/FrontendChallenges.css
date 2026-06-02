@@ -1,0 +1,88 @@
+.fe-chall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.fe-chall-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #fff;
+    padding: 24px;
+}
+
+.fe-ch-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fe-ch-time {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.fe-ch-diff {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.fe-ch-easy {
+    background: rgba(34, 197, 94, 0.1);
+    color: #15803d;
+}
+
+.fe-ch-medium {
+    background: rgba(245, 166, 35, 0.1);
+    color: #b45309;
+}
+
+.fe-ch-hard {
+    background: rgba(239, 68, 68, 0.1);
+    color: #b91c1c;
+}
+
+.fe-ch-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.fe-ch-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.fe-ch-tech {
+    font-size: 11px;
+    background: #f9f5f0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+.fe-ch-btn {
+    margin-top: auto;
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 12px;
+    background: var(--text-main);
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.fe-ch-btn:hover {
+    background: var(--accent-amber-dark);
+}

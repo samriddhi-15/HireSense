@@ -1,0 +1,15 @@
+.problem-row { border-bottom: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: background .2s; }
+.problem-row:hover { background: #fdf6ee; }
+.problem-row td { padding: 14px 18px; vertical-align: middle; }
+.problem-name { font-weight: 600; color: #1a1a1a; }
+.tag-chip { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 50px; background: #f0ebe4; color: #888; margin-right: 4px; }
+
+/* Modal Styles */
+.modal-backdrop { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; }
+.problem-modal { background: #fff; border-radius: 24px; width: 90%; max-width: 1100px; height: 80vh; display: flex; flex-direction: column; overflow: hidden; }
+.modal-header { padding: 24px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+.modal-body { display: flex; flex: 1; overflow: hidden; }
+.modal-left { flex: 0 0 40%; border-right: 1px solid #eee; overflow-y: auto; }
+.modal-right { flex: 1; background: #1a1a1a; display: flex; flex-direction: column; }
+.code-textarea { flex: 1; background: #1a1a1a; color: #e5c07b; border: none; padding: 20px; font-family: monospace; }
+.output-console { background: #000; color: #fff; padding: 15px; height: 120px; }

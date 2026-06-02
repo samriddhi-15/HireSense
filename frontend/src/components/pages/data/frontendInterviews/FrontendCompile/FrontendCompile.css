@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700;800;900&display=swap');
+
+:root {
+  --bg-main: #fdf6ee;
+  --bg-card: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.65);
+  --border-glass: rgba(0, 0, 0, 0.06);
+  --accent-amber: #f5a623;
+  --accent-amber-dark: #e8920f;
+  --accent-blue: #4a9fd5;
+  --text-main: #1a1a1a;
+  --text-muted: #666666;
+  --text-light: #aaa;
+}
+
+.fe-compile-page {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-main);
+  padding-bottom: 80px;
+}
+
+.fe-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.fe-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 32px;
+  margin-top: 40px;
+  align-items: start;
+}
+
+.fe-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.fe-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: sticky;
+  top: 32px;
+}
+
+/* Reusable Glass Card Utility */
+.fe-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 8px 32px rgba(46, 35, 24, 0.05);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.fe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(245, 166, 35, 0.1);
+  border-color: rgba(245, 166, 35, 0.25);
+}
+
+.fe-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.fe-section-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .fe-grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .fe-sidebar-content {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .fe-container { padding: 0 16px; }
+}

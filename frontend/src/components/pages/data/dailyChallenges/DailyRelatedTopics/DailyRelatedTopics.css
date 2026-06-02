@@ -1,0 +1,81 @@
+.topics-section {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 60px 60px;
+}
+
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.topic-chip {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(0, 0, 0, .07);
+    border-radius: 18px;
+    padding: 18px 16px;
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px);
+    animation: cardIn .55s cubic-bezier(.22, 1, .36, 1) calc(var(--ti)*.1s + .1s) forwards;
+}
+
+.topic-chip:hover {
+    border-color: #f5a623;
+    box-shadow: 0 12px 36px rgba(245, 166, 35, .1);
+    transform: translateY(-4px);
+}
+
+.tc-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, .65) 50%, transparent 75%);
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: transform .6s ease;
+}
+
+.topic-chip:hover .tc-shimmer {
+    transform: translateX(110%);
+}
+
+.tc-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.tc-info {
+    flex: 1;
+}
+
+.tc-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.tc-count {
+    font-size: 11px;
+    color: #bbb;
+    margin-top: 2px;
+}
+
+.tc-arrow {
+    font-size: 16px;
+    color: #f5a623;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity .25s, transform .25s;
+}
+
+.topic-chip:hover .tc-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}

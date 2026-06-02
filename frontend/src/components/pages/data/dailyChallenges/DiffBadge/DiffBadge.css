@@ -1,0 +1,14 @@
+.diff-badge {
+  display: inline-block;
+  font-weight: 800;
+  border-radius: 50px;
+  letter-spacing: ".3px";
+}
+.badge-small {
+  font-size: 11px;
+  padding: 3px 10px;
+}
+.badge-large {
+  font-size: 13px;
+  padding: 5px 14px;
+}

@@ -1,0 +1,89 @@
+.mot-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 60px 48px;
+}
+
+.mot-card {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2e2318 100%);
+    border-radius: 28px;
+    padding: 44px 48px;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(26, 26, 26, .18);
+}
+
+.mot-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245, 166, 35, .12), transparent);
+    pointer-events: none;
+}
+
+.mot-quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: rgba(245, 166, 35, .18);
+    line-height: .7;
+    position: absolute;
+    top: 20px;
+    left: 36px;
+    font-weight: 900;
+}
+
+.mot-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2.8vw, 1.8rem);
+    font-weight: 700;
+    color: #f5ede0;
+    line-height: 1.55;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 16px;
+    animation: motIn .4s ease-out;
+}
+
+.mot-author {
+    font-size: 13px;
+    color: rgba(245, 237, 224, .4);
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+.mot-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 22px;
+    position: relative;
+    z-index: 1;
+}
+
+.mot-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .15);
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.mot-dot-active {
+    background: #f5a623;
+    width: 26px;
+    border-radius: 50px;
+}
+
+@keyframes motIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

@@ -1,0 +1,14 @@
+.diff-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 50px;
+}
+.diff-easy { background: rgba(34, 197, 94, .1); color: #15803d; }
+.diff-medium { background: rgba(245, 166, 35, .12); color: #b45309; }
+.diff-hard { background: rgba(239, 68, 68, .1); color: #b91c1c; }
+
+.status-icon { font-size: 16px; font-weight: 700; }
+.status-solved { color: #22c55e; }
+.status-attempted { color: #f5a623; }
+.status-none { color: #ddd; }
