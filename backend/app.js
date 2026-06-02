@@ -11,17 +11,17 @@ import interviewRouter from "./routes/interviewRouter.js";
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://hiresense-gold.vercel.app"
-    ],
+    app.use(cors({
+        origin: true,
+        credentials: true
+    }));
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
 
 console.log("CORS ORIGINS:", [
-  "http://localhost:5173",
-  "https://hiresense-gold.vercel.app"
+    "http://localhost:5173",
+    "https://hiresense-gold.vercel.app"
 ]);
 
 
