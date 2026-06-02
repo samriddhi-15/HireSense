@@ -11,10 +11,13 @@ import interviewRouter from "./routes/interviewRouter.js";
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: [
+        "http://localhost:5173",
+        "https://hiresense-gold.vercel.app"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
-}))
+}));
 app.use(fileUpload());
 app.use("/api/interviews", interviewRouter);
 

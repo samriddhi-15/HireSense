@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import './Signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const FloatingShape = ({ style, className }) => (
@@ -20,6 +20,7 @@ function Signup() {
     const [focusedField, setFocusedField] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [showPass, setShowPass] = useState(false);
+    const navigate = useNavigate;
 
     useEffect(() => {
         const t = setTimeout(() => setMounted(true), 80);
@@ -56,9 +57,10 @@ function Signup() {
                 setSubmitted(true);
             }
         } catch (error) {
-            console.log(error);
-
-            alert("Something went wrong");
+            console.log("ERROR:", error);
+            console.log("RESPONSE:", error.response);
+            console.log("REQUEST:", error.request);
+            alert(error.message);
         }
     };
 
@@ -149,8 +151,10 @@ function Signup() {
                                 <div className="signup__success-icon">✓</div>
                                 <h2 className="signup__success-title">Welcome aboard!</h2>
                                 <p className="signup__success-sub">Your HireSense account is ready. Start learning today.</p>
-                                <button className="signup__success-btn" onClick={() => setSubmitted(false)}>
-                                    Go to Dashboard →
+                                <button className="signup__success-btn" onClick={() => navigate
+                                    ("/")
+                                }>
+                                    Go to Home →
                                 </button>
                             </div>
                         ) : (
