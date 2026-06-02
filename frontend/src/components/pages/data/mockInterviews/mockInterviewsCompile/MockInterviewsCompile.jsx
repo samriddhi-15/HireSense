@@ -57,7 +57,7 @@ export default function MockInterviewsCompile() {
         JSON.parse(localStorage.getItem("user"));
 
       const res = await axios.post(
-        "http://localhost:4000/api/interviews/start",
+        `${import.meta.env.VITE_API_URL}/api/interviews/start`,
         {
           userId: user._id,
 
@@ -125,7 +125,7 @@ export default function MockInterviewsCompile() {
           );
 
         const res = await axios.get(
-          `http://localhost:4000/api/interviews/latest/${user._id}`
+          `${import.meta.env.VITE_API_URL}/api/interviews/latest/${user._id}`
         );
         console.log(
           "LOADED INTERVIEW:",
@@ -183,7 +183,7 @@ export default function MockInterviewsCompile() {
     try {
 
       const res = await axios.post(
-        "http://localhost:4000/api/interviews/answer",
+        `${import.meta.env.VITE_API_URL}/api/interviews/answer`,
         {
           interviewId,
           questionIndex: qi,

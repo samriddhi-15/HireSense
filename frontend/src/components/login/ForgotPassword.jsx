@@ -102,7 +102,7 @@ export default function ForgotPassword({ onNavigateToLogin }) {
         setLoadingLink(true);
         try {
             const response = await axios.post(
-                "http://localhost:4000/hireSense/forgotPassword",
+                `${import.meta.env.VITE_API_URL}/hireSense/forgotPassword`,
                 { email }
             );
 

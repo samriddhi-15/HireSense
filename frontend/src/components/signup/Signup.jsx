@@ -38,7 +38,7 @@ function Signup() {
                 alert("Passwords do not match");
                 return;
             }
-            const dataStore = await axios.post("http://localhost:4000/hireSense/signUp",
+            const dataStore = await axios.post(`${import.meta.env.VITE_API_URL}/hireSense/signUp`,
                 {
                     fname: form.firstName,
                     lname: form.lastName,

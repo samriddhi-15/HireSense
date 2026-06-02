@@ -33,7 +33,7 @@ function Login() {
         return;
       }
 
-      const dataStore = await axios.post("http://localhost:4000/hireSense/logIn",
+      const dataStore = await axios.post(`${import.meta.env.VITE_API_URL}/hireSense/logIn`,
         {
           email, password
         }
