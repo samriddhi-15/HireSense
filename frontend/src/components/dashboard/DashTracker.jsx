@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './DashTracker.css';
 
-const DashTracker = () => {
-  const [seconds, setSeconds] = useState(155);
+const DashTracker = ({
+  dashboardData
+}) => {
+  const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(true);
 
   useEffect(() => {
@@ -16,10 +18,11 @@ const DashTracker = () => {
   const r = 58; const circ = 2 * Math.PI * r;
   const offset = circ - circ * pct;
 
-  const fmt = s => {
-    const m = Math.floor(s / 60) % 60;
-    const sec = s % 60;
-    return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  const fmt = (s) => {
+    const mins = Math.floor(s / 60);
+    const secs = s % 60;
+
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
   return (
@@ -33,14 +36,14 @@ const DashTracker = () => {
       <div className="dtr__ring-wrap">
         <svg width="140" height="140" className="dtr__svg">
           {/* Tick marks */}
-          {[...Array(60)].map((_,i) => {
-            const a = (i/60)*2*Math.PI - Math.PI/2;
-            const inner = i%5===0 ? 56 : 62;
+          {[...Array(60)].map((_, i) => {
+            const a = (i / 60) * 2 * Math.PI - Math.PI / 2;
+            const inner = i % 5 === 0 ? 56 : 62;
             return (
               <line key={i}
-                x1={70+Math.cos(a)*inner} y1={70+Math.sin(a)*inner}
-                x2={70+Math.cos(a)*66}   y2={70+Math.sin(a)*66}
-                stroke={i%5===0 ? 'rgba(245,166,35,0.4)':'rgba(0,0,0,0.08)'} strokeWidth={i%5===0?2:1}
+                x1={70 + Math.cos(a) * inner} y1={70 + Math.sin(a) * inner}
+                x2={70 + Math.cos(a) * 66} y2={70 + Math.sin(a) * 66}
+                stroke={i % 5 === 0 ? 'rgba(245,166,35,0.4)' : 'rgba(0,0,0,0.08)'} strokeWidth={i % 5 === 0 ? 2 : 1}
               />
             );
           })}
@@ -51,14 +54,14 @@ const DashTracker = () => {
             stroke="#f5a623" strokeWidth="8"
             strokeDasharray={circ} strokeDashoffset={offset}
             strokeLinecap="round"
-            style={{ transform:'rotate(-90deg)', transformOrigin:'50% 50%', transition:'stroke-dashoffset 0.5s ease' }}
+            style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%', transition: 'stroke-dashoffset 0.5s ease' }}
           />
           {/* Glow arc */}
           <circle cx="70" cy="70" r={r} fill="none"
             stroke="#f5a623" strokeWidth="12"
             strokeDasharray={circ} strokeDashoffset={offset}
             strokeLinecap="round" opacity="0.12"
-            style={{ transform:'rotate(-90deg)', transformOrigin:'50% 50%', filter:'blur(4px)', transition:'stroke-dashoffset 0.5s ease' }}
+            style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%', filter: 'blur(4px)', transition: 'stroke-dashoffset 0.5s ease' }}
           />
         </svg>
 
@@ -80,20 +83,43 @@ const DashTracker = () => {
 
       {/* Session stats */}
       <div className="dtr__stats">
+
         <div className="dtr__stat">
-          <span className="dtr__stat-val">3</span>
-          <span className="dtr__stat-label">Sessions</span>
+          <span className="dtr__stat-val">
+            {dashboardData?.interviews || 0}
+          </span>
+          <span className="dtr__stat-label">
+            Sessions
+          </span>
         </div>
+
         <div className="dtr__stat-div" />
+
         <div className="dtr__stat">
-          <span className="dtr__stat-val">142h</span>
-          <span className="dtr__stat-label">Total</span>
+          <span className="dtr__stat-val">
+            {dashboardData?.practiceHours || 0}h
+          </span>
+          <span className="dtr__stat-label">
+            Total
+          </span>
         </div>
+
         <div className="dtr__stat-div" />
+
         <div className="dtr__stat">
-          <span className="dtr__stat-val">4.2h</span>
-          <span className="dtr__stat-label">Avg/day</span>
+          <span className="dtr__stat-val">
+            {dashboardData?.streak
+              ? (
+                dashboardData.practiceHours /
+                dashboardData.streak
+              ).toFixed(1)
+              : 0}h
+          </span>
+          <span className="dtr__stat-label">
+            Avg/day
+          </span>
         </div>
+
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const ProgressChart = ({
 
     const t = setTimeout(() => requestAnimationFrame(step), 300);
     return () => clearTimeout(t);
-  }, [visible]);
+  }, [visible, TARGET_VALUE]);
 
   return (
     <div className="pc-main-bar">

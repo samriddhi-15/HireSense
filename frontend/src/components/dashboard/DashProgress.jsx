@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import './DashProgress.css';
 
-const days = ['S','M','T','W','T','F','S'];
+const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const barHeights = [30, 55, 45, 70, 90, 100, 60];
 const currentDay = 5;
 
-const courses = [
-  { name:'Communication Skills',  pct: 74, color:'#f5a623' },
-  { name:'Problem Solving',   pct: 58, color:'#4a9fd5' },
-  { name:'Aptitude Practice', pct: 41, color:'#e8920f' },
-];
 
-const DashProgress = () => {
+const DashProgress = ({
+  dashboardData,
+  progressData
+}) => {
+  const courses = [
+    {
+      name: "Communication Skills",
+      pct: progressData?.communication || 0,
+      color: "#f5a623"
+    },
+
+    {
+      name: "Technical Skills",
+      pct: progressData?.technical || 0,
+      color: "#4a9fd5"
+    },
+
+    {
+      name: "Problem Solving",
+      pct: progressData?.problemSolving || 0,
+      color: "#e8920f"
+    }
+  ];
+
   const [go, setGo] = useState(false);
   useEffect(() => { const t = setTimeout(() => setGo(true), 500); return () => clearTimeout(t); }, []);
 
@@ -21,8 +39,8 @@ const DashProgress = () => {
         <div>
           <div className="dpg__title">Progress</div>
           <div className="dpg__hours">
-            <span className="dpg__hrs-val">6.1</span>
-            <span className="dpg__hrs-unit">h</span>
+            <span className="dpg__hrs-val">{dashboardData?.practiceHours || 0}</span>
+            <span className="dpg__hrs-unit"></span>
             <span className="dpg__hrs-label">Practice Time this week</span>
           </div>
         </div>
@@ -31,14 +49,14 @@ const DashProgress = () => {
 
       {/* Bar chart */}
       <div className="dpg__bars">
-        {barHeights.map((h,i) => (
+        {barHeights.map((h, i) => (
           <div key={i} className="dpg__bar-col">
             <div className="dpg__bar-track">
               <div
                 className={`dpg__bar-fill ${i === currentDay ? 'dpg__bar-fill--active' : ''}`}
                 style={{
                   height: go ? `${h}%` : '0%',
-                  transitionDelay: go ? `${i*0.08+0.3}s` : '0s',
+                  transitionDelay: go ? `${i * 0.08 + 0.3}s` : '0s',
                 }}
               >
                 {i === currentDay && (
@@ -55,7 +73,7 @@ const DashProgress = () => {
 
       {/* Course progress */}
       <div className="dpg__courses">
-        {courses.map((c,i) => (
+        {courses.map((c, i) => (
           <div key={i} className="dpg__course" style={{ '--coi': i }}>
             <div className="dpg__course-top">
               <span className="dpg__course-name">{c.name}</span>
@@ -67,7 +85,7 @@ const DashProgress = () => {
                 style={{
                   '--cc': c.color,
                   width: go ? `${c.pct}%` : '0%',
-                  transitionDelay: go ? `${i*0.14+0.7}s` : '0s',
+                  transitionDelay: go ? `${i * 0.14 + 0.7}s` : '0s',
                 }}
               />
               <div
@@ -75,7 +93,7 @@ const DashProgress = () => {
                 style={{
                   '--cc': c.color,
                   width: go ? `${c.pct}%` : '0%',
-                  transitionDelay: go ? `${i*0.14+0.7}s` : '0s',
+                  transitionDelay: go ? `${i * 0.14 + 0.7}s` : '0s',
                 }}
               />
             </div>

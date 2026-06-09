@@ -1,21 +1,119 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './DashTasks.css';
 
-const tasks = [
-  { id:1, title:'Aptitude Mock Test',    date:'Sep 13, 09:30', done:true,  icon:'📝' },
-  { id:2, title:'HR Interview Questions',  date:'Sep 13, 12:00', done:true,  icon:'🤝' },
-  { id:3, title:'Coding Assessment',     date:'Sep 13, 15:00', done:false, icon:'📁' },
-  { id:4, title:'React Interview Practice',   date:'Sep 13, 15:45', done:false, icon:'🎯' },
-  { id:5, title:'Communication Practice',   date:'Sep 13, 16:30', done:false, icon:'📋' },
-];
-
 const DashTasks = () => {
-  const [done, setDone] = useState(tasks.map(t => t.done));
+  const [tasks, setTasks] = useState([]);
 
-  const completed = done.filter(Boolean).length;
-  const pct = Math.round((completed / tasks.length) * 100);
+  const [showModal, setShowModal] = useState(false);
 
-  const toggle = i => setDone(d => d.map((v,j) => j===i ? !v : v));
+  const [newTarget, setNewTarget] = useState({
+    title: '',
+    category: 'Technical',
+    dueDate: '',
+  });
+
+  const fetchGoals = async () => {
+    try {
+
+      const user = JSON.parse(
+        localStorage.getItem("user")
+      );
+      console.log("User:", user);
+
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/goals/${user._id}`
+      );
+
+      console.log("Response:", res.data);
+
+      setTasks(res.data.goals);
+
+
+    } catch (error) {
+
+      console.log("Fetch Goals Error:", error);
+
+    }
+  };
+  useEffect(() => {
+    fetchGoals();
+  }, []);
+
+  const completed = tasks.filter(task => task.done).length;
+
+  const pct =
+    tasks.length > 0
+      ? Math.round((completed / tasks.length) * 100)
+      : 0;
+  const toggle = async (id) => {
+
+    try {
+
+      const task = tasks.find(
+        t => t._id === id
+      );
+
+      const res = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/goals/${id}`,
+        {
+          done: !task.done
+        }
+      );
+
+      setTasks(
+        tasks.map(t =>
+          t._id === id
+            ? res.data.goal
+            : t
+        )
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  };
+
+  const createTarget = async () => {
+    try {
+
+      const user = JSON.parse(
+        localStorage.getItem("user")
+      );
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/goals`,
+        {
+          userId: user._id,
+          title: newTarget.title,
+          category: newTarget.category,
+          dueDate: newTarget.dueDate,
+          done: false,
+          icon: "🎯"
+        }
+      );
+
+      setTasks(prev => [
+        ...prev,
+        res.data.goal
+      ]);
+
+      setNewTarget({
+        title: '',
+        category: 'Technical',
+        dueDate: '',
+      });
+
+      setShowModal(false);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  };
 
   return (
     <div className="dtk">
@@ -40,27 +138,97 @@ const DashTasks = () => {
 
       {/* Tasks */}
       <div className="dtk__list">
-        {tasks.map((t,i) => (
+        {tasks.map((t, i) => (
           <div
-            key={t.id}
-            className={`dtk__task ${done[i] ? 'dtk__task--done' : ''}`}
+            key={t._id}
+            className={`dtk__task ${t.done ? 'dtk__task--done' : ''}`}
             style={{ '--ti': i }}
-            onClick={() => toggle(i)}
+            onClick={() => toggle(t._id)}
           >
             <div className="dtk__task-icon-wrap">{t.icon}</div>
             <div className="dtk__task-info">
               <span className="dtk__task-title">{t.title}</span>
               <span className="dtk__task-date">{t.date}</span>
             </div>
-            <div className={`dtk__check ${done[i] ? 'dtk__check--done' : ''}`}>
-              {done[i] && <span className="dtk__check-tick">✓</span>}
+            <div className={`dtk__check ${t.done ? 'dtk__check--done' : ''}`}>
+              {t.done && <span className="dtk__check-tick">✓</span>}
             </div>
           </div>
         ))}
       </div>
 
       {/* Footer */}
-      <button className="dtk__add">+ Create New Target</button>
+      <button
+        className="dtk__add"
+        onClick={() => setShowModal(true)}
+      >
+        + Create New Target
+      </button>
+
+      {showModal && (
+        <div className="target-modal-overlay">
+          <div className="target-modal">
+
+            <h2>Create New Target</h2>
+
+            <input
+              type="text"
+              placeholder="Target Name"
+              value={newTarget.title}
+              onChange={(e) =>
+                setNewTarget({
+                  ...newTarget,
+                  title: e.target.value
+                })
+              }
+            />
+
+            <select
+              value={newTarget.category}
+              onChange={(e) =>
+                setNewTarget({
+                  ...newTarget,
+                  category: e.target.value
+                })
+              }
+            >
+              <option>Technical</option>
+              <option>Aptitude</option>
+              <option>HR</option>
+              <option>Communication</option>
+              <option>React</option>
+            </select>
+
+            <input
+              type="date"
+              value={newTarget.dueDate}
+              onChange={(e) =>
+                setNewTarget({
+                  ...newTarget,
+                  dueDate: e.target.value
+                })
+              }
+            />
+
+            <div className="target-modal-buttons">
+              <button
+                className="cancel-btn"
+                onClick={() => setShowModal(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="create-btn"
+                onClick={createTarget}
+              >
+                Create
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };
