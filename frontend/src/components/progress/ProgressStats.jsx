@@ -2,13 +2,34 @@ import React from 'react';
 import RingChart from './RingChart';
 import './ProgressStats.css';
 
-const RINGS = [
-  { label: 'Practice Completion', value: 67, color: '#f5a623', delay: 0.3 },
-  { label: 'Interview Accuracy', value: 43, color: '#4a9fd5', delay: 0.5 },
-  { label: 'Confidence Level', value: 32, color: '#e8920f', delay: 0.7 },
-];
 
-const ProgressStats = ({ visible }) => {
+const ProgressStats = ({
+  visible,
+  progressData
+}) => {
+
+  const RINGS = [
+    {
+      label: "Communication",
+      value: progressData?.communication || 0,
+      color: "#f5a623",
+      delay: 0.3
+    },
+    {
+      label: "Technical",
+      value: progressData?.technical || 0,
+      color: "#4a9fd5",
+      delay: 0.5
+    },
+    {
+      label: "Problem Solving",
+      value: progressData?.problemSolving || 0,
+      color: "#e8920f",
+      delay: 0.7
+    }
+  ];
+
+
   return (
     <div className="ps-rings-grid">
       {RINGS.map((r, i) => (

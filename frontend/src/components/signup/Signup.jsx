@@ -20,7 +20,7 @@ function Signup() {
     const [focusedField, setFocusedField] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [showPass, setShowPass] = useState(false);
-    const navigate = useNavigate;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const t = setTimeout(() => setMounted(true), 80);
@@ -151,8 +151,7 @@ function Signup() {
                                 <div className="signup__success-icon">✓</div>
                                 <h2 className="signup__success-title">Welcome aboard!</h2>
                                 <p className="signup__success-sub">Your HireSense account is ready. Start learning today.</p>
-                                <button className="signup__success-btn" onClick={() => navigate
-                                    ("/")
+                                <button className="signup__success-btn" onClick={() => navigate("/")
                                 }>
                                     Go to Home →
                                 </button>

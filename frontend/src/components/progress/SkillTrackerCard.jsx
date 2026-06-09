@@ -4,7 +4,10 @@ import ProgressStats from './ProgressStats';
 import ProgressFooter from './ProgressFooter';
 import './SkillTrackerCard.css';
 
-const SkillTrackerCard = ({ visible }) => {
+const SkillTrackerCard = ({
+  visible,
+  progressData
+}) => {
   return (
     <div className={`st-card ${visible ? 'st-card--visible' : ''}`}>
       <div className="st-card__noise" />
@@ -20,9 +23,14 @@ const SkillTrackerCard = ({ visible }) => {
         <div className="st-card__settings">⚙</div>
       </div>
 
-      <ProgressChart visible={visible} />
-      <ProgressStats visible={visible} />
-      <ProgressFooter />
+      <ProgressChart
+        visible={visible}
+        progressData={progressData} />
+      <ProgressStats
+        visible={visible}
+        progressData={progressData} />
+      <ProgressFooter
+        progressData={progressData} />
     </div>
   );
 };

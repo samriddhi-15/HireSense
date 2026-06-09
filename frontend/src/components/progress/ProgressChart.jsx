@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './ProgressChart.css';
 
-const TARGET_VALUE = 74;
 
-const ProgressChart = ({ visible }) => {
+const ProgressChart = ({
+  visible,
+  progressData
+}) => {
   const [count, setCount] = useState(0);
+  const TARGET_VALUE =
+    progressData?.overall || 0;
 
   useEffect(() => {
     if (!visible) return;

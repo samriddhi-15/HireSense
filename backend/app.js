@@ -7,6 +7,7 @@ import userRouter from "./routes/userRouter.js";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import interviewRouter from "./routes/interviewRouter.js";
+import progressRouter from "./routes/progressRouter.js";
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(cors({
 
 app.use(fileUpload());
 app.use("/api/interviews", interviewRouter);
+app.use("/api/progress", progressRouter);
 
 const port = process.env.PORT || 4000;
 dbConnect();

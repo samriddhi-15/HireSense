@@ -5,10 +5,12 @@ import SkillTrackerCard from './SkillTrackerCard';
 import AchievementBadge from './AchievementBadge';
 import './Progress.css';
 import Leaderboard from './Leaderboard';
+import axios from "axios";
 
 const Progress = () => {
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
+  const [progressData, setProgressData] = useState(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -19,36 +21,68 @@ const Progress = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+
+    const fetchProgress = async () => {
+
+      try {
+
+        const user = JSON.parse(
+          localStorage.getItem("user")
+        );
+
+        if (!user) return;
+
+        const res = await axios.get(
+          `http://localhost:4000/api/progress/${user._id}`
+        );
+
+        setProgressData(res.data.progress);
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
+    fetchProgress();
+
+  }, []);
+
   return (
     <>
-    <section className={`ps ${visible ? 'ps--visible' : ''}`} ref={sectionRef}>
-      <div className="ps__noise" />
-      <div className="ps__blob ps__blob--1" />
-      <div className="ps__blob ps__blob--2" />
-      <div className="ps__blob ps__blob--3" />
+      <section className={`ps ${visible ? 'ps--visible' : ''}`} ref={sectionRef}>
+        <div className="ps__noise" />
+        <div className="ps__blob ps__blob--1" />
+        <div className="ps__blob ps__blob--2" />
+        <div className="ps__blob ps__blob--3" />
 
-      {/* Background Ambience Sparkles */}
-      {[
-        { top: '10%', left: '4%' },
-        { top: '78%', left: '2%' },
-        { top: '15%', right: '3%' },
-        { top: '70%', right: '5%' },
-        { top: '45%', left: '48%' },
-      ].map((coords, index) => (
-        <span key={index} className="ps__sparkle" style={{ ...coords, '--si': index }} />
-      ))}
+        {/* Background Ambience Sparkles */}
+        {[
+          { top: '10%', left: '4%' },
+          { top: '78%', left: '2%' },
+          { top: '15%', right: '3%' },
+          { top: '70%', right: '5%' },
+          { top: '45%', left: '48%' },
+        ].map((coords, index) => (
+          <span key={index} className="ps__sparkle" style={{ ...coords, '--si': index }} />
+        ))}
 
-      <div className="ps__left">
-        <ProgressHeader visible={visible} />
-        <ActivityBars visible={visible} />
-      </div>
+        <div className="ps__left">
+          <ProgressHeader visible={visible} />
+          <ActivityBars visible={visible}
+            progressData={progressData} />
+        </div>
 
-      <div className="ps__right">
-        <SkillTrackerCard visible={visible} />
-        <AchievementBadge visible={visible} />
-      </div>
-    </section>
-    <Leaderboard/>
+        <div className="ps__right">
+          <SkillTrackerCard visible={visible}
+            progressData={progressData} />
+          <AchievementBadge visible={visible} />
+        </div>
+      </section>
+      <Leaderboard />
     </>
   );
 };
