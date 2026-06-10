@@ -36,6 +36,7 @@ const Progress = () => {
         const res = await axios.get(
           `http://localhost:4000/api/progress/${user._id}`
         );
+        console.log(res.data.progress);
 
         setProgressData(res.data.progress);
 

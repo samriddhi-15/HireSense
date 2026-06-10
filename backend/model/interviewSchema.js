@@ -64,6 +64,27 @@ const interviewSchema = new mongoose.Schema({
     default: 0
   },
 
+  resumeText: {
+    type: String,
+    default: ""
+  },
+
+  jdText: {
+    type: String,
+    default: ""
+  },
+
+  interviewMode: {
+    type: String,
+    enum: [
+      "generic",
+      "resume",
+      "jd",
+      "personalized"
+    ],
+    default: "generic"
+  },
+
   analytics: {
 
     confidence: {

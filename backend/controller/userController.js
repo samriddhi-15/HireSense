@@ -88,7 +88,7 @@ export const logIn = async (req, res) => {
             token,
             body: findUser
         });
-        
+
 
     } catch (error) {
 
@@ -350,4 +350,39 @@ export const resetPassword = async (req, res) => {
 
     }
 
+};
+
+export const updatePractice = async (req, res) => {
+    try {
+        const { userId, seconds } = req.body;
+
+        const user = await userDataSchema.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false
+            });
+        }
+
+        user.practiceHours += seconds / 3600;
+
+        const today = new Date().toDateString();
+
+        if (
+            !user.lastPracticeDate ||
+            new Date(user.lastPracticeDate).toDateString() !== today
+        ) {
+            user.streak += 1;
+            user.lastPracticeDate = new Date();
+        }
+
+        await user.save();
+
+        return res.json({
+            success: true
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
 };

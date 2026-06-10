@@ -56,18 +56,55 @@ export default function MockInterviewsCompile() {
       const user =
         JSON.parse(localStorage.getItem("user"));
 
+      const formData = new FormData();
+
+      formData.append(
+        "userId",
+        user._id
+      );
+
+      formData.append(
+        "role",
+        settings.role
+      );
+
+      formData.append(
+        "type",
+        settings.type
+      );
+
+      formData.append(
+        "level",
+        settings.level
+      );
+
+      formData.append(
+        "difficulty",
+        settings.difficulty
+      );
+
+      formData.append(
+        "jdText",
+        settings.jdText || ""
+      );
+
+      if (settings.resumeFile) {
+
+        formData.append(
+          "resume",
+          settings.resumeFile
+        );
+
+      }
+
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/interviews/start`,
+        formData,
         {
-          userId: user._id,
-
-          role: settings.role,
-
-          type: settings.type,
-
-          level: settings.level,
-
-          difficulty: settings.difficulty
+          headers: {
+            "Content-Type":
+              "multipart/form-data"
+          }
         }
       );
       console.log(
@@ -91,6 +128,15 @@ export default function MockInterviewsCompile() {
 
       setQuestions(
         res.data.interview.questions
+      );
+      localStorage.setItem(
+        "practiceStartTime",
+        Date.now()
+      );
+
+      localStorage.setItem(
+        "practiceRunning",
+        "true"
       );
 
       localStorage.setItem(
@@ -314,6 +360,11 @@ export default function MockInterviewsCompile() {
               {interviewStage === "coding" && (
                 <MockCoding
                   onSubmit={async () => {
+
+                    localStorage.setItem(
+                      "practiceRunning",
+                      "false"
+                    );
 
                     await fetchLatestInterview();
 

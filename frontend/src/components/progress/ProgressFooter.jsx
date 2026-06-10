@@ -7,7 +7,7 @@ const ProgressFooter = ({
   return (
     <div className="st-card-footer">
       <div className="st-card-footer__item">
-        <span className="st-card-footer__val">28</span>
+        <span className="st-card-footer__val">{progressData?.streak || 0}</span>
         <span className="st-card-footer__label">Day Streak 🔥</span>
       </div>
       <div className="st-card-footer__div" />
@@ -17,7 +17,7 @@ const ProgressFooter = ({
       </div>
       <div className="st-card-footer__div" />
       <div className="st-card-footer__item">
-        <span className="st-card-footer__val">142h</span>
+        <span className="st-card-footer__val">{progressData?.practiceHours || 0}h</span>
         <span className="st-card-footer__label">Practiced</span>
       </div>
     </div>

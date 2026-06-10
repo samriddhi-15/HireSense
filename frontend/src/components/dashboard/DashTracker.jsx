@@ -1,18 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import './DashTracker.css';
+import axios from 'axios'
+
 
 const DashTracker = ({
   dashboardData
 }) => {
-  const [seconds, setSeconds] = useState(0);
-  const [running, setRunning] = useState(true);
+  const [seconds, setSeconds] = useState(() => {
+    const startTime = Number(
+      localStorage.getItem("practiceStartTime")
+    );
+
+    return startTime
+      ? Math.floor(
+        (Date.now() - startTime) / 1000
+      )
+      : 0;
+  });
+
+  const [running, setRunning] = useState(
+    localStorage.getItem("practiceRunning")
+    === "true"
+  );
 
   useEffect(() => {
-    if (!running) return;
-    const id = setInterval(() => setSeconds(s => s + 1), 1000);
-    return () => clearInterval(id);
-  }, [running]);
 
+    const id = setInterval(() => {
+
+      const startTime = Number(
+        localStorage.getItem(
+          "practiceStartTime"
+        )
+      );
+
+      const isRunning =
+        localStorage.getItem(
+          "practiceRunning"
+        ) === "true";
+
+      setRunning(isRunning);
+
+      if (isRunning && startTime) {
+
+        setSeconds(
+          Math.floor(
+            (Date.now() - startTime) / 1000
+          )
+        );
+
+      }
+
+    }, 1000);
+
+    return () => clearInterval(id);
+
+  }, []);
   const total = 3600;
   const pct = (seconds % total) / total;
   const r = 58; const circ = 2 * Math.PI * r;
@@ -73,10 +115,57 @@ const DashTracker = ({
 
       {/* Controls */}
       <div className="dtr__controls">
-        <button className="dtr__ctrl" onClick={() => setRunning(r => !r)}>
-          {running ? '⏸' : '▶'}
+        <button
+          className="dtr__ctrl"
+          onClick={async () => {
+
+            const user = JSON.parse(
+              localStorage.getItem("user")
+            );
+
+            if (user && seconds > 0) {
+
+              await axios.post(
+                "http://localhost:4000/api/user/update-practice",
+                {
+                  userId: user._id,
+                  seconds
+                }
+              );
+
+            }
+
+            setRunning(false);
+            setSeconds(0);
+
+            localStorage.setItem(
+              "practiceRunning",
+              "false"
+            );
+
+            localStorage.removeItem(
+              "practiceStartTime"
+            );
+
+          }}
+        >{running ? '⏸' : '▶'}
         </button>
-        <button className="dtr__ctrl dtr__ctrl--stop" onClick={() => { setRunning(false); setSeconds(0); }}>
+        <button className="dtr__ctrl dtr__ctrl--stop" onClick={() => {
+
+          setRunning(false);
+
+          setSeconds(0);
+
+          localStorage.setItem(
+            "practiceRunning",
+            "false"
+          );
+
+          localStorage.removeItem(
+            "practiceStartTime"
+          );
+
+        }}>
           ⏹
         </button>
       </div>

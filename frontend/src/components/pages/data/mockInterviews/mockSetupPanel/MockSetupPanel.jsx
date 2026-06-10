@@ -12,54 +12,34 @@ const MockSetupPanel = ({
   loading
 }) => {
 
-  const [role, setRole] =
-    useState(ROLES[0]);
-
-  const [level, setLevel] =
-    useState(LEVELS[2]);
-
-  const [type, setType] =
-    useState(TYPES[5]);
-
-  const [diff, setDiff] =
-    useState(DIFFICULTIES[1]);
-
-  const [dur, setDur] =
-    useState(DURATIONS[3]);
-
-  const [cam, setCam] =
-    useState(true);
-
-  const [mic, setMic] =
-    useState(true);
+  const [role, setRole] = useState(ROLES[0]);
+  const [level, setLevel] = useState(LEVELS[2]);
+  const [type, setType] = useState(TYPES[5]);
+  const [diff, setDiff] = useState(DIFFICULTIES[1]);
+  const [dur, setDur] = useState(DURATIONS[3]);
+  const [cam, setCam] = useState(true);
+  const [mic, setMic] = useState(true);
+  const [resumeFile, setResumeFile] = useState(null);
+  const [jdText, setJdText] = useState("");
 
   const handleStartInterview =
     async () => {
-
       if (loading) return;
-
       await onStart({
-
         role,
-
         level,
-
         type,
-
         difficulty: diff,
-
-        duration: dur
-
+        duration: dur,
+        resumeFile,
+        jdText
       });
 
     };
 
   return (
-
     <section className="setup-section">
-
       <div className="section-header">
-
         <span className="section-eyebrow">
           ✦ Interview Configuration
         </span>
@@ -74,17 +54,13 @@ const MockSetupPanel = ({
         <p className="section-sub">
           Configure your interview preferences before we begin
         </p>
-
       </div>
 
       <div className="setup-grid">
-
         <div className="setup-card">
-
           <div className="setup-card-head">
             ⚙️ Interview Settings
           </div>
-
           <div className="setup-fields">
 
             {[
@@ -119,22 +95,17 @@ const MockSetupPanel = ({
                   ))}
 
                 </select>
-
               </div>
-
             ))}
 
           </div>
         </div>
 
         <div className="setup-card">
-
           <div className="setup-card-head">
             📄 Documents
           </div>
-
           <div className="upload-area">
-
             <div className="upload-icon">
               📤
             </div>
@@ -147,9 +118,17 @@ const MockSetupPanel = ({
               PDF, DOC, DOCX · Max 5MB
             </div>
 
-            <button className="upload-btn">
-              Choose File
-            </button>
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={(e) =>
+                setResumeFile(e.target.files[0])
+              }
+            />
+
+            {resumeFile && (
+              <p>{resumeFile.name}</p>
+            )}
 
           </div>
 
@@ -167,24 +146,26 @@ const MockSetupPanel = ({
             </div>
 
             <div className="upload-sub">
-              Paste or upload the job posting
+              Paste the job posting
             </div>
 
-            <button className="upload-btn">
-              Paste JD
-            </button>
+            <textarea
+              placeholder="Paste Job Description"
+              value={jdText}
+              onChange={(e) =>
+                setJdText(e.target.value)
+              }
+            />
 
           </div>
         </div>
 
         <div className="setup-card">
-
           <div className="setup-card-head">
             🎥 Device Setup
           </div>
 
           <div className="device-preview">
-
             <div className="cam-preview">
 
               <span style={{ fontSize: 48 }}>
@@ -199,9 +180,7 @@ const MockSetupPanel = ({
           </div>
 
           <div className="device-toggles">
-
             <div className="device-row">
-
               <div className="device-info">
 
                 <span style={{ fontSize: 20 }}>
@@ -213,11 +192,9 @@ const MockSetupPanel = ({
                   <div className="device-name">
                     Camera
                   </div>
-
                   <div className="device-sub">
                     HD Webcam · Active
                   </div>
-
                 </div>
               </div>
 
@@ -227,11 +204,9 @@ const MockSetupPanel = ({
               >
                 <div className="toggle-thumb" />
               </div>
-
             </div>
 
             <div className="device-row">
-
               <div className="device-info">
 
                 <span style={{ fontSize: 20 }}>
@@ -243,11 +218,9 @@ const MockSetupPanel = ({
                   <div className="device-name">
                     Microphone
                   </div>
-
                   <div className="device-sub">
                     Built-in Mic · Active
                   </div>
-
                 </div>
               </div>
 
@@ -261,15 +234,12 @@ const MockSetupPanel = ({
             </div>
 
             <div className="device-row">
-
               <div className="device-info">
-
                 <span style={{ fontSize: 20 }}>
                   🔊
                 </span>
 
                 <div>
-
                   <div className="device-name">
                     Speakers
                   </div>
@@ -279,15 +249,11 @@ const MockSetupPanel = ({
                   </div>
 
                 </div>
-
               </div>
-
               <div className="status-pill status-ok">
                 Ready
               </div>
-
             </div>
-
           </div>
 
           <button
@@ -308,11 +274,9 @@ const MockSetupPanel = ({
               : "🚀 Begin Interview Session"}
 
           </button>
-
         </div>
       </div>
     </section>
-
   );
 };
 

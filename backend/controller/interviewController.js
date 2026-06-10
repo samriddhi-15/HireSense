@@ -1,9 +1,11 @@
 import Interview from "../model/interviewSchema.js";
 import { evaluateAnswer } from "../ai/evaluateAnswer.js";
 import { generateQuestions } from "../services/generateQuestions.js";
+import * as pdfParse from "pdf-parse";
 
 export const startInterview = async (req, res) => {
-
+    console.log("START INTERVIEW HIT");
+    console.log(req.body);
     try {
 
         const {
@@ -11,9 +13,39 @@ export const startInterview = async (req, res) => {
             role,
             type,
             level,
-            difficulty
+            difficulty,
+            resumeFile,
+            jdText
         } = req.body;
 
+        let resumeText = "";
+
+        if (
+            req.files &&
+            req.files.resume
+        ) {
+
+            const pdfData = await pdfParse.default(
+                req.files.resume.data
+            );
+            console.log("=================================");
+            console.log("RESUME TEXT LENGTH:", resumeText.length);
+            console.log(
+                "RESUME TEXT PREVIEW:",
+                resumeText.substring(0, 1000)
+            );
+            console.log("=================================");
+
+            resumeText =
+                pdfData.text;
+
+        }
+
+
+        console.log(
+            "RESUME TEXT EXTRACTED:",
+            resumeText?.substring(0, 1000)
+        );
         // Generate AI Questions
         const aiQuestions =
             await generateQuestions({
@@ -24,8 +56,11 @@ export const startInterview = async (req, res) => {
 
                 interviewType: type,
 
-                difficulty
+                difficulty,
 
+                resumeText,
+
+                jdText
             });
         console.log(
             "AI QUESTIONS:",
@@ -286,6 +321,8 @@ export const generateInterviewQuestions = async (req, res) => {
             experience,
             interviewType,
             difficulty,
+            resumeText,
+            jdText
         } = req.body;
 
         const questions = await generateQuestions({
@@ -293,6 +330,8 @@ export const generateInterviewQuestions = async (req, res) => {
             experience,
             interviewType,
             difficulty,
+            resumeText,
+            jdText
         });
 
         res.status(200).json({

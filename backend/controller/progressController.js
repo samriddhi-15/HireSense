@@ -1,8 +1,10 @@
 import Interview from "../model/interviewSchema.js";
+import User from "../model/userSchema.js";
 
 export const getProgress = async (req, res) => {
     try {
         const { userId } = req.params;
+        const user = await User.findById(userId);
 
         const interviews = await Interview.find({
             userId
@@ -55,6 +57,11 @@ export const getProgress = async (req, res) => {
                     ) / 4
                 ),
                 totalInterviews: interviews.length,
+                practiceHours: Math.round(
+                    user?.practiceHours || 0
+                ),
+
+                streak: user?.streak || 0,
             },
         });
     } catch (err) {
