@@ -110,3 +110,40 @@
     color: rgba(245, 237, 224, .5);
     line-height: 1.5;
 }
+
+/* =========================
+   Mobile Feedback Sidebar
+========================= */
+@media (max-width: 768px) {
+
+    .feedback-sidebar {
+        right: 0;
+    }
+
+    /* Hide content by default */
+    .fs-content {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 260px;
+        height: 100vh;
+        max-height: 100vh;
+        transition: right 0.3s ease;
+        z-index: 999;
+        padding-top: 70px;
+    }
+
+    /* Show when sidebar is opened */
+    .feedback-sidebar.open .fs-content {
+        right: 0;
+    }
+
+    /* Keep only the feedback button visible */
+    .fs-toggle {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+    }
+}

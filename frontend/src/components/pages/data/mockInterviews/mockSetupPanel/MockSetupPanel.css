@@ -202,3 +202,128 @@
   background: rgba(74, 222, 128, .12);
   color: #15803d;
 }
+
+/* =========================
+   Tablet
+========================= */
+@media (max-width: 1024px) {
+  .setup-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+@media (max-width: 768px) {
+  .setup-section {
+    padding: 24px 0 50px;
+  }
+
+  .setup-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .setup-card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .setup-card-head {
+    font-size: 11px;
+    margin-bottom: 14px;
+  }
+
+  .field-label {
+    font-size: 11px;
+  }
+
+  .field-select {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .upload-area {
+    padding: 18px 14px;
+    text-align: center;
+  }
+
+  .upload-icon {
+    font-size: 24px;
+  }
+
+  .upload-text {
+    font-size: 13px;
+  }
+
+  .upload-sub {
+    font-size: 11px;
+  }
+
+  .upload-btn {
+    width: 100%;
+    max-width: 220px;
+  }
+
+  .cam-preview {
+    height: 110px;
+    margin-bottom: 14px;
+  }
+
+  .device-row {
+    gap: 10px;
+  }
+
+  .device-name {
+    font-size: 13px;
+  }
+
+  .device-sub {
+    font-size: 11px;
+  }
+
+  .status-pill {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+}
+
+/* =========================
+   Small Phones
+========================= */
+@media (max-width: 480px) {
+  .setup-card {
+    padding: 16px;
+  }
+
+  .field-select {
+    font-size: 12px;
+  }
+
+  .device-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .device-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .device-name {
+    word-break: break-word;
+  }
+
+  .toggle {
+    flex-shrink: 0;
+  }
+
+  .cam-preview {
+    height: 100px;
+  }
+
+  .upload-btn {
+    width: 100%;
+  }
+}

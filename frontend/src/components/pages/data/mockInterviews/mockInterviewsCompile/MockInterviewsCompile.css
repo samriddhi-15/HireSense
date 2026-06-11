@@ -223,13 +223,21 @@ body {
     /* Prevents flex/grid children from breaking layout width */
 }
 
-@media(max-width: 1100px) {
+@media (max-width: 1100px) {
 
-    .interview-wrap {
+    .interview-page {
         grid-template-columns: 1fr;
-        /* Stacks vertically on smaller screens */
-        gap: 32px;
-        padding: 20px 24px;
+        gap: 24px;
+        padding: 16px;
+    }
+
+    .interview-content-stack {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .interview-main-content {
+        width: 100%;
     }
 
     .hero {
@@ -248,5 +256,25 @@ body {
 
     .feedback-sidebar {
         display: none;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .interview-page {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 12px;
+    }
+
+    .section-header {
+        margin-bottom: 24px;
+    }
+
+    .sticky-back {
+        margin: 0 0 12px 0;
+        position: relative;
+        top: 0;
     }
 }

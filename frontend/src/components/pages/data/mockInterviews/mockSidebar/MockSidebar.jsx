@@ -7,6 +7,8 @@ const MockSidebar = ({
     interview
 }) => {
 
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
     const [expanded, setExpanded] = useState(true);
 
     const analytics =
@@ -54,7 +56,7 @@ const MockSidebar = ({
     return (
 
         <div className={`feedback-sidebar ${expanded ? "fs-open" : ""}`}>
-            <button className="fs-toggle" onClick={() => setExpanded(!expanded)}>
+            <button className="fs-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
                 {expanded ? "→" : "← Feedback"}
             </button>
             {expanded && (

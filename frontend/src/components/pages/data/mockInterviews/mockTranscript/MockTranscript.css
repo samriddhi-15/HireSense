@@ -277,3 +277,130 @@
     background: #ef4444;
     animation: waveDance .6s ease-in-out infinite calc(var(--wi)*.09s);
 }
+
+/* =========================
+   Tablet
+========================= */
+@media (max-width: 992px) {
+    .ta-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .tp-messages {
+        max-height: 300px;
+    }
+}
+
+/* =========================
+   Mobile
+========================= */
+@media (max-width: 768px) {
+    .ta-section {
+        padding: 20px 0;
+    }
+
+    .transcript-panel,
+    .answer-panel {
+        border-radius: 16px;
+    }
+
+    .tp-header,
+    .ap-header {
+        padding: 14px 16px;
+        font-size: 12px;
+    }
+
+    .tp-messages {
+        padding: 12px;
+        max-height: 280px;
+        gap: 10px;
+    }
+
+    .tp-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+
+    .tp-bubble {
+        max-width: calc(100% - 40px);
+        padding: 10px 12px;
+    }
+
+    .tp-bubble-text {
+        font-size: 12px;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .tp-time {
+        font-size: 10px;
+    }
+
+    .answer-panel {
+        padding: 16px;
+    }
+
+    .ap-textarea {
+        min-height: 180px;
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .ap-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .char-count {
+        text-align: center;
+    }
+
+    .ap-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .voice-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+    }
+
+    .recording-indicator {
+        width: 100%;
+        justify-content: center;
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+/* =========================
+   Small Phones
+========================= */
+@media (max-width: 480px) {
+    .tp-bubble {
+        max-width: 85%;
+    }
+
+    .tp-bubble-text {
+        font-size: 11.5px;
+    }
+
+    .ap-textarea {
+        min-height: 150px;
+    }
+
+    .voice-btn {
+        font-size: 12px;
+        padding: 10px 14px;
+    }
+
+    .recording-indicator {
+        font-size: 11px;
+        padding: 8px 10px;
+    }
+}
