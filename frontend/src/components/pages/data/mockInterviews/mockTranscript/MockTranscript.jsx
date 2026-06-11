@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import "./MockTranscript.css";
 
 
@@ -18,28 +19,69 @@ const MockTranscript = ({
   ]);
   const [typing, setTyping] = useState(false);
   const [recording, setRecording] = useState(false);
+  const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
   const bottomRef = useRef(null);
 
+  const startRecording = () => {
+    resetTranscript();
 
+    setRecording(true);
+
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: "en-IN",
+    });
+  };
+
+  const stopRecording = () => {
+    SpeechRecognition.stopListening();
+    setRecording(false);
+  };
   const sendAnswer = async () => {
+
+    SpeechRecognition.stopListening();
+
+    setRecording(false);
+
     if (!answer.trim()) return;
+
     await onSaveAnswer(answer);
+
     const newMsg = {
       role: "candidate",
       text: answer,
-      time: `0${Math.floor(messages.length / 2)}:${String((messages.length * 12) % 60).padStart(2, "0")}`
+      time: `0${Math.floor(messages.length / 2)}:${String(
+        (messages.length * 12) % 60
+      ).padStart(2, "0")}`
     };
+
     setMessages(m => [...m, newMsg]);
+
     setAnswer("");
+
+    resetTranscript();
   };
+
+  useEffect(() => {
+    if (recording) {
+      setAnswer(transcript);
+    }
+  }, [transcript, recording]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typing]);
 
   useEffect(() => {
-
     if (!currentQuestion) return;
+
+    SpeechRecognition.stopListening();
+
+    setRecording(false);
+
+    resetTranscript();
+
+    setAnswer("");
 
     setMessages([
       {
@@ -48,9 +90,15 @@ const MockTranscript = ({
         time: "00:00"
       }
     ]);
-
   }, [currentQuestion]);
 
+  if (!browserSupportsSpeechRecognition) {
+    return (
+      <div>
+        Your browser does not support speech recognition.
+      </div>
+    );
+  }
   return (
     <section className="ta-section">
       <div className="ta-grid">
@@ -93,7 +141,7 @@ const MockTranscript = ({
                   </div>
                 </div>
               )
-            } 
+            }
             <div ref={bottomRef} />
           </div>
         </div>
@@ -110,8 +158,18 @@ const MockTranscript = ({
           <div className="ap-footer">
             <span className="char-count">{answer.length} / 2000 characters</span>
             <div className="ap-actions">
-              <button className={`voice-btn ${recording ? "voice-active" : ""}`} onClick={() => setRecording(!recording)}>
-                {recording ? "⏹ Stop" : "🎙 Voice"}
+              <button
+                className={`voice-btn ${recording ? "voice-active" : ""
+                  }`}
+                onClick={
+                  recording
+                    ? stopRecording
+                    : startRecording
+                }
+              >
+                {recording
+                  ? "⏹ Stop Recording"
+                  : "🎙 Start Voice"}
               </button>
               <button className="btn-primary" onClick={sendAnswer} disabled={!answer.trim()}>Send Answer →</button>
             </div>

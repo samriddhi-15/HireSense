@@ -44,9 +44,9 @@ export const generateQuestions = async ({
         const prompt = `
 You are a Senior Technical Interviewer at a top technology company.
 
-Your job is to generate highly realistic interview questions.
+Your task is to generate highly realistic interview questions that closely resemble actual interviews conducted by companies.
 
-Interview Context
+Interview Context:
 
 Role: ${role}
 Experience Level: ${experience}
@@ -60,109 +60,183 @@ ${resumeText || "Not Provided"}
 Job Description:
 ${jdText || "Not Provided"}
 
-====================================
-INTERVIEW GENERATION RULES
-==========================
+====================================================
+INTERVIEW STRATEGY
+==================
 
 Determine the interview strategy based on Interview Mode.
 
-1. GENERIC MODE
-   (Resume not provided, JD not provided)
+---
 
-Generate questions based on:
+1. GENERIC MODE
+   (Resume NOT provided, JD NOT provided)
+
+---
+
+Generate questions using:
 
 * Role
-* Experience level
-* Interview type
+* Experience Level
+* Interview Type
 * Difficulty
-
-Questions should resemble a real company interview.
-
-====================================
-
-2. RESUME MODE
-   (Resume provided, JD not provided)
-
-The resume is the PRIMARY source.
 
 Question Distribution:
 
-* 2 questions from projects
-* 1 question from work experience
-* 1 question from technologies used
-* 1 question from achievements or impact
+* 3 Technical Questions
+* 1 Scenario-Based Question
+* 1 Behavioral Question
 
-Requirements:
+---
 
-* Explicitly reference project names when possible
-* Explicitly reference technologies when possible
-* Explicitly reference accomplishments when possible
-* Avoid generic textbook questions
+2. RESUME MODE
+   (Resume provided, JD NOT provided)
 
-Bad Example:
+---
+
+The Resume is the PRIMARY source.
+
+MANDATORY QUESTION DISTRIBUTION:
+
+* 2 Questions from Projects
+* 1 Question from Internship / Work Experience
+* 1 Question from Technologies Used
+* 1 Question from Achievements / Impact
+
+STRICT RULES:
+
+* Mention actual project names.
+* Mention actual company names.
+* Mention actual technologies.
+* Mention actual achievements.
+* Mention actual metrics if available.
+
+Examples:
+
+GOOD:
+"Your RupeeBee project handled 6K+ requests with under 200ms latency. What architectural decisions helped achieve that performance?"
+
+GOOD:
+"During your internship at Karta AI, you built MCP servers and agent pipelines. What was the most technically challenging problem you solved?"
+
+BAD:
 "Explain REST APIs."
 
-Good Example:
-"In your RupeeBee project, how did you achieve low-latency responses while handling thousands of requests?"
+BAD:
+"What is Node.js?"
 
-====================================
+At least 4 out of 5 questions MUST explicitly reference information found in the resume.
+
+---
 
 3. JD MODE
-   (JD provided, Resume not provided)
+   (JD provided, Resume NOT provided)
+
+---
 
 The Job Description is the PRIMARY source.
 
 Question Distribution:
 
-* 3 questions from required skills
-* 1 scenario-based question
-* 1 behavioral or practical question
+* 3 Questions from Required Skills
+* 1 Scenario-Based Question
+* 1 Behavioral Question
 
 Requirements:
 
-* Focus on skills listed in the JD
-* Simulate a recruiter screening for this role
+* Evaluate readiness for the role.
+* Focus on responsibilities listed in the JD.
+* Focus on tools and technologies listed in the JD.
+* Simulate a real recruiter or hiring manager interview.
 
-====================================
+---
 
 4. PERSONALIZED MODE
-   (Resume and JD both provided)
+   (Resume provided AND JD provided)
 
-Perform a resume-to-job matching analysis.
+---
 
-Question Distribution:
+Perform Resume-to-JD matching analysis.
 
-* 2 questions from resume projects
-* 2 questions from JD requirements
-* 1 skill-gap question
+MANDATORY QUESTION DISTRIBUTION:
+
+* 2 Resume-Based Questions
+* 2 JD-Based Questions
+* 1 Skill-Gap Question
 
 Requirements:
 
-* Compare candidate experience against JD requirements
-* Identify missing or weak areas
-* Ask realistic recruiter-style questions
-* Mention project names whenever possible
-* Mention required skills whenever possible
+* Compare resume against JD.
+* Identify strengths.
+* Identify missing skills.
+* Identify weak areas.
+* Ask realistic recruiter-style questions.
 
-Example Skill Gap Question:
+Example:
 
-"Your resume shows extensive Node.js experience, but the JD emphasizes distributed systems. How would you prepare for that responsibility?"
+"Your resume highlights extensive Node.js and FastAPI experience, while the JD emphasizes distributed systems and Kubernetes. How would you prepare to handle those responsibilities?"
 
-====================================
+---
 
-# GLOBAL RULES
+## QUESTION QUALITY RULES
 
-* Generate EXACTLY 5 questions
-* Every question must be unique
-* Prefer practical scenarios over theory
-* Avoid cliché interview questions
-* Avoid generic questions unless absolutely necessary
-* Questions should sound like they come from an experienced interviewer
-* Difficulty should match the selected difficulty level
-* Experience level should influence depth and complexity
-* Return ONLY a valid JSON array
+Questions must:
 
-Output Example:
+* Sound like a real interviewer.
+* Be practical.
+* Be scenario-based whenever possible.
+* Assess real-world decision making.
+* Test depth of understanding.
+* Avoid textbook definitions.
+* Avoid trivia.
+* Avoid repetitive topics.
+
+Prefer questions about:
+
+* Architecture decisions
+* Debugging
+* Scalability
+* Performance optimization
+* Production incidents
+* Trade-offs
+* Collaboration
+* System design
+* Business impact
+
+---
+
+## CRITICAL VALIDATION RULES
+
+If Resume is provided:
+
+At least FOUR questions MUST contain one or more of:
+
+* Project Names
+* Company Names
+* Technology Names
+* Achievements
+* Metrics
+
+from the resume.
+
+If JD is provided:
+
+At least TWO questions MUST directly reference requirements from the JD.
+
+If Resume and JD are both provided:
+
+Questions MUST contain information from BOTH sources.
+
+DO NOT generate generic role-based questions when Resume or JD content is available.
+
+====================================================
+OUTPUT FORMAT
+=============
+
+Generate EXACTLY 5 questions.
+
+Return ONLY a valid JSON array.
+
+Example:
 
 [
 "Question 1",
@@ -171,22 +245,7 @@ Output Example:
 "Question 4",
 "Question 5"
 ]
-`;
-
-        console.log("================================");
-        console.log("MODE:", mode);
-        console.log("ROLE:", role);
-        console.log("RESUME LENGTH:", resumeText?.length || 0);
-        console.log("JD LENGTH:", jdText?.length || 0);
-
-        if (resumeText) {
-            console.log(
-                "RESUME START:",
-                resumeText.substring(0, 1000)
-            );
-        }
-
-        console.log("================================");
+`
         const response = await axios.post(
             "https://openrouter.ai/api/v1/chat/completions",
 
@@ -224,8 +283,13 @@ Output Example:
             .replace(/```/g, "")
             .trim();
 
-        const parsedQuestions = JSON.parse(content);
+        const match = content.match(/\[[\s\S]*\]/);
 
+        if (!match) {
+            throw new Error("No JSON array found");
+        }
+
+        const parsedQuestions = JSON.parse(match[0]);
         if (
             !Array.isArray(parsedQuestions) ||
             parsedQuestions.length === 0

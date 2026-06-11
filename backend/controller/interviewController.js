@@ -20,32 +20,20 @@ export const startInterview = async (req, res) => {
 
         let resumeText = "";
 
-        if (
-            req.files &&
-            req.files.resume
-        ) {
+        if (req.files?.resume) {
 
-            const pdfData = await pdfParse.default(
-                req.files.resume.data
-            );
-            console.log("=================================");
-            console.log("RESUME TEXT LENGTH:", resumeText.length);
-            console.log(
-                "RESUME TEXT PREVIEW:",
-                resumeText.substring(0, 1000)
-            );
-            console.log("=================================");
+            const parser = new pdfParse.PDFParse({
+                data: req.files.resume.data
+            });
 
-            resumeText =
-                pdfData.text;
+            await parser.load();
 
+            const result = await parser.getText();
+
+            resumeText = result.text || "";
         }
 
 
-        console.log(
-            "RESUME TEXT EXTRACTED:",
-            resumeText?.substring(0, 1000)
-        );
         // Generate AI Questions
         const aiQuestions =
             await generateQuestions({

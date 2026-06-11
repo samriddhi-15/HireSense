@@ -239,6 +239,7 @@
     background: #ef4444;
     border-color: #ef4444;
     color: #fff;
+    animation: pulse 1s infinite;
 }
 
 .recording-indicator {
