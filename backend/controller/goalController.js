@@ -68,18 +68,27 @@ export const updateGoal = async (req, res) => {
 export const deleteGoal = async (req, res) => {
     try {
 
-        await Goal.findByIdAndDelete(req.params.id);
+        const goal = await Goal.findByIdAndDelete(
+            req.params.id
+        );
 
-        res.json({
+        if (!goal) {
+            return res.status(404).json({
+                success: false,
+                message: "Goal not found"
+            });
+        }
+
+        res.status(200).json({
             success: true,
-            message: "Goal deleted",
+            message: "Goal deleted successfully"
         });
 
-    } catch (err) {
+    } catch (error) {
 
         res.status(500).json({
             success: false,
-            message: err.message,
+            message: error.message
         });
 
     }

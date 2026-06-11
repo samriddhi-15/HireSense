@@ -1,4 +1,5 @@
 import Interview from "../model/interviewSchema.js";
+import User from "../model/userSchema.js";
 import { evaluateAnswer } from "../ai/evaluateAnswer.js";
 import { generateQuestions } from "../services/generateQuestions.js";
 import * as pdfParse from "pdf-parse";
@@ -197,7 +198,49 @@ export const submitAnswer = async (req, res) => {
             interview.overallScore
         );
 
-        await interview.save();
+
+
+        await interview.save(); if (
+            answeredQuestions.length ===
+            interview.questions.length
+        ) {
+            console.log("INTERVIEW COMPLETED");
+            const user = await User.findById(interview.userId);
+
+            console.log("USER BEFORE:", user);
+            if (user) {
+                user.practiceTime = (user.practiceTime || 0) + 0.5;
+
+                const today = new Date();
+                console.log(
+                    "Answered:",
+                    answeredQuestions.length,
+                    "Total:",
+                    interview.questions.length
+                );
+                if (!user.lastActiveDate) {
+                    user.streak = 1;
+                } else {
+                    const lastDate = new Date(user.lastActiveDate);
+
+                    const diffDays = Math.floor(
+                        (today - lastDate) /
+                        (1000 * 60 * 60 * 24)
+                    );
+
+                    if (diffDays === 1) {
+                        user.streak += 1;
+                    } else if (diffDays > 1) {
+                        user.streak = 1;
+                    }
+                }
+
+                user.lastActiveDate = today;
+
+                await user.save();
+                console.log("USER AFTER SAVE:", user);
+            }
+        }
 
         res.status(200).json({
 

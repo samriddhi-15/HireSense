@@ -320,3 +320,29 @@
   background: #f4a622;
   color: white;
 }
+
+.dtk__task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dtk__task-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+}
+
+.dtk__delete-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 6px;
+  transition: transform 0.2s ease;
+}
+
+.dtk__delete-btn:hover {
+  transform: scale(1.15);
+}

@@ -40,7 +40,9 @@ export const getProgress = async (req, res) => {
                 0
             ) / interviews.length
         );
-
+        console.log("User:", user);
+        console.log("Practice Hours:", user?.practiceTime);
+        console.log("Streak:", user?.streak);
         res.json({
             success: true,
             progress: {
@@ -58,7 +60,7 @@ export const getProgress = async (req, res) => {
                 ),
                 totalInterviews: interviews.length,
                 practiceHours: Math.round(
-                    user?.practiceHours || 0
+                    user?.practiceTime  || 0
                 ),
 
                 streak: user?.streak || 0,

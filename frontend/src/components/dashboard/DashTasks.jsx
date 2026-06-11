@@ -4,7 +4,6 @@ import './DashTasks.css';
 
 const DashTasks = () => {
   const [tasks, setTasks] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
 
   const [newTarget, setNewTarget] = useState({
@@ -15,27 +14,18 @@ const DashTasks = () => {
 
   const fetchGoals = async () => {
     try {
-
-      const user = JSON.parse(
-        localStorage.getItem("user")
-      );
-      console.log("User:", user);
+      const user = JSON.parse(localStorage.getItem("user"));
 
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/goals/${user._id}`
       );
 
-      console.log("Response:", res.data);
-
       setTasks(res.data.goals);
-
-
     } catch (error) {
-
       console.log("Fetch Goals Error:", error);
-
     }
   };
+
   useEffect(() => {
     fetchGoals();
   }, []);
@@ -46,18 +36,15 @@ const DashTasks = () => {
     tasks.length > 0
       ? Math.round((completed / tasks.length) * 100)
       : 0;
+
   const toggle = async (id) => {
-
     try {
-
-      const task = tasks.find(
-        t => t._id === id
-      );
+      const task = tasks.find(t => t._id === id);
 
       const res = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/goals/${id}`,
         {
-          done: !task.done
+          done: !task.done,
         }
       );
 
@@ -68,17 +55,27 @@ const DashTasks = () => {
             : t
         )
       );
-
     } catch (error) {
-
       console.log(error);
+    }
+  };
 
+  const deleteTask = async (id) => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/goals/${id}`
+      );
+
+      setTasks(prev =>
+        prev.filter(task => task._id !== id)
+      );
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const createTarget = async () => {
     try {
-
       const user = JSON.parse(
         localStorage.getItem("user")
       );
@@ -91,13 +88,13 @@ const DashTasks = () => {
           category: newTarget.category,
           dueDate: newTarget.dueDate,
           done: false,
-          icon: "🎯"
+          icon: "🎯",
         }
       );
 
       setTasks(prev => [
         ...prev,
-        res.data.goal
+        res.data.goal,
       ]);
 
       setNewTarget({
@@ -107,52 +104,100 @@ const DashTasks = () => {
       });
 
       setShowModal(false);
-
     } catch (error) {
-
       console.log(error);
-
     }
   };
 
   return (
     <div className="dtk">
-      {/* Onboarding header */}
+
+      {/* Header */}
       <div className="dtk__head">
         <div>
-          <div className="dtk__title">TODAY’S GOALS</div>
-          <div className="dtk__score">{completed}/{tasks.length}</div>
+          <div className="dtk__title">
+            TODAY’S GOALS
+          </div>
+          <div className="dtk__score">
+            {completed}/{tasks.length}
+          </div>
         </div>
+
         <div className="dtk__pct-wrap">
-          <div className="dtk__pct-num">{pct}%</div>
-          <div className="dtk__pct-label">Goal Progress</div>
+          <div className="dtk__pct-num">
+            {pct}%
+          </div>
+          <div className="dtk__pct-label">
+            Goal Progress
+          </div>
         </div>
       </div>
 
-      {/* Progress bar */}
+      {/* Progress Bar */}
       <div className="dtk__bar-track">
-        <div className="dtk__bar-fill" style={{ width: `${pct}%` }}>
+        <div
+          className="dtk__bar-fill"
+          style={{ width: `${pct}%` }}
+        >
           <div className="dtk__bar-shine" />
         </div>
       </div>
 
-      {/* Tasks */}
+      {/* Task List */}
       <div className="dtk__list">
         {tasks.map((t, i) => (
           <div
             key={t._id}
-            className={`dtk__task ${t.done ? 'dtk__task--done' : ''}`}
+            className={`dtk__task ${
+              t.done ? 'dtk__task--done' : ''
+            }`}
             style={{ '--ti': i }}
-            onClick={() => toggle(t._id)}
           >
-            <div className="dtk__task-icon-wrap">{t.icon}</div>
-            <div className="dtk__task-info">
-              <span className="dtk__task-title">{t.title}</span>
-              <span className="dtk__task-date">{t.date}</span>
+            <div
+              className="dtk__task-content"
+              onClick={() => toggle(t._id)}
+            >
+              <div className="dtk__task-icon-wrap">
+                {t.icon}
+              </div>
+
+              <div className="dtk__task-info">
+                <span className="dtk__task-title">
+                  {t.title}
+                </span>
+
+                <span className="dtk__task-date">
+                  {t.dueDate
+                    ? new Date(
+                        t.dueDate
+                      ).toLocaleDateString()
+                    : ''}
+                </span>
+              </div>
+
+              <div
+                className={`dtk__check ${
+                  t.done
+                    ? 'dtk__check--done'
+                    : ''
+                }`}
+              >
+                {t.done && (
+                  <span className="dtk__check-tick">
+                    ✓
+                  </span>
+                )}
+              </div>
             </div>
-            <div className={`dtk__check ${t.done ? 'dtk__check--done' : ''}`}>
-              {t.done && <span className="dtk__check-tick">✓</span>}
-            </div>
+
+            <button
+              className="dtk__delete-btn"
+              onClick={() =>
+                deleteTask(t._id)
+              }
+            >
+              🗑️
+            </button>
           </div>
         ))}
       </div>
@@ -160,11 +205,14 @@ const DashTasks = () => {
       {/* Footer */}
       <button
         className="dtk__add"
-        onClick={() => setShowModal(true)}
+        onClick={() =>
+          setShowModal(true)
+        }
       >
         + Create New Target
       </button>
 
+      {/* Modal */}
       {showModal && (
         <div className="target-modal-overlay">
           <div className="target-modal">
@@ -178,7 +226,7 @@ const DashTasks = () => {
               onChange={(e) =>
                 setNewTarget({
                   ...newTarget,
-                  title: e.target.value
+                  title: e.target.value,
                 })
               }
             />
@@ -188,7 +236,7 @@ const DashTasks = () => {
               onChange={(e) =>
                 setNewTarget({
                   ...newTarget,
-                  category: e.target.value
+                  category: e.target.value,
                 })
               }
             >
@@ -205,7 +253,7 @@ const DashTasks = () => {
               onChange={(e) =>
                 setNewTarget({
                   ...newTarget,
-                  dueDate: e.target.value
+                  dueDate: e.target.value,
                 })
               }
             />
@@ -213,7 +261,9 @@ const DashTasks = () => {
             <div className="target-modal-buttons">
               <button
                 className="cancel-btn"
-                onClick={() => setShowModal(false)}
+                onClick={() =>
+                  setShowModal(false)
+                }
               >
                 Cancel
               </button>
@@ -229,6 +279,7 @@ const DashTasks = () => {
           </div>
         </div>
       )}
+
     </div>
   );
 };
