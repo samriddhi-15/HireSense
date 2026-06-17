@@ -61,10 +61,14 @@ const DashTracker = ({
   const offset = circ - circ * pct;
 
   const fmt = (s) => {
-    const mins = Math.floor(s / 60);
-    const secs = s % 60;
+    const hrs = Math.floor(s / 3600);
+    const mins = Math.floor((s % 3600) / 60);
 
-    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+    if (hrs > 0) {
+      return `${hrs}h ${mins}m`;
+    }
+
+    return `${mins}m`;
   };
 
   return (

@@ -136,8 +136,14 @@ export const forgotPassword = async (req, res) => {
 
         }
 
-        // Step 4: create reset link
-        const resetUrl = `http://localhost:5173/resetPassword/${user._id}`;
+        // Step 4: create reset token
+        const resetToken = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: "15m" }
+        );
+
+        const resetUrl = `http://localhost:5173/resetPassword/${resetToken}`;
 
         // Step 5: create transporter
         const transporter = nodemailer.createTransport({
@@ -240,112 +246,59 @@ export const forgotPassword = async (req, res) => {
 };
 
 export const resetPassword = async (req, res) => {
-
     try {
 
-        // Step 1: get data from frontend
-        const { id } = req.params;
+        const { token } = req.params;
 
         const { password, confirmPassword } = req.body;
 
-        // Step 2: validate fields
-        if (!password || !confirmPassword) {
+        let decoded;
+        console.log("SECRET:", process.env.JWT_SECRET);
+        try {
+            decoded = jwt.verify(
+                token,
+                process.env.JWT_SECRET
+            );
 
-            return res.json({
-
+        } catch (error) {
+            return res.status(401).json({
                 success: false,
-
-                status: 400,
-
-                message: "Please fill all fields",
-
-                body: {}
-
+                message: error.message
             });
 
         }
 
-        // Step 3: password match check
         if (password !== confirmPassword) {
 
-            return res.json({
-
+            return res.status(400).json({
                 success: false,
-
-                status: 400,
-
-                message: "Passwords do not match",
-
-                body: {}
-
+                message: "Passwords do not match"
             });
 
         }
 
-        // Step 4: hash new password
-        const saltRound = 10;
-
-        const encPass = await bcrypt.hash(password, saltRound);
-
-        // Step 5: update password
-        const updateUser = await userDataSchema.findByIdAndUpdate(
-
-            id,
-
-            {
-                password: encPass
-            },
-
-            {
-                new: true
-            }
-
+        const encPass = await bcrypt.hash(
+            password,
+            10
         );
 
-        // Step 6: user not found
-        if (!updateUser) {
+        await userDataSchema.findByIdAndUpdate(
+            decoded.userId,
+            {
+                password: encPass
+            }
+        );
 
-            return res.json({
-
-                success: false,
-
-                status: 400,
-
-                message: "User not found",
-
-                body: {}
-
-            });
-
-        }
-
-        // Step 7: success response
         return res.json({
-
             success: true,
-
-            status: 200,
-
-            message: "Password reset successful",
-
-            body: {}
-
+            message: "Password reset successful"
         });
 
     } catch (error) {
 
-        console.log(error.message);
-
-        return res.json({
-
+        return res.status(500).json({
             success: false,
-
-            status: 500,
-
-            message: "Reset password failed",
-
-            body: {}
-
+            message: error.message
         });
 
     }

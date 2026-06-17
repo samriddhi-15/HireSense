@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import "./ResetPassword.css";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 /* ─────────────────────────────────────────────
    PasswordStrength component
@@ -47,6 +47,7 @@ const REQS = [
     { id: "spec", label: "Special character", test: (p) => /[^A-Za-z0-9]/.test(p) },
 ];
 
+
 function PasswordRequirements({ password }) {
     if (!password) return null;
     return (
@@ -67,11 +68,19 @@ function PasswordRequirements({ password }) {
 /* ─────────────────────────────────────────────
    SuccessAnimation component
 ───────────────────────────────────────────── */
-function SuccessAnimation({ onRedirect }) {
+function SuccessAnimation() {
+
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const t = setTimeout(() => { if (onRedirect) onRedirect(); }, 3200);
+
+        const t = setTimeout(() => {
+            navigate("/login");
+        }, 3200);
+
         return () => clearTimeout(t);
-    }, [onRedirect]);
+
+    }, [navigate]);
 
     return (
         <div className="rp-success">
@@ -92,6 +101,7 @@ function SuccessAnimation({ onRedirect }) {
    Main: ResetPassword
 ───────────────────────────────────────────── */
 export default function ResetPassword({ onNavigateToLogin }) {
+    const { token } = useParams();
     const [newPw, setNewPw] = useState("");
     const [confirmPw, setConfirmPw] = useState("");
     const [showNew, setShowNew] = useState(false);
@@ -99,6 +109,7 @@ export default function ResetPassword({ onNavigateToLogin }) {
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     /* Derived state */
     const allReqsMet = REQS.every(({ test }) => test(newPw));
@@ -119,10 +130,24 @@ export default function ResetPassword({ onNavigateToLogin }) {
             //   token, 
             //   newPassword: newPw,
             // });
-            await new Promise((r) => setTimeout(r, 2200)); // simulate
-            setSuccess(true);
+
+            const response = await axios.put(
+                `http://localhost:4000/hireSense/resetPassword/${token}`,
+                {
+                    password: newPw,
+                    confirmPassword: confirmPw
+                }
+            );
+            console.log(response.data);
+
+            if (response.data.success) {
+                setSuccess(true);
+            } else {
+                setErrorMsg(response.data.message);
+            }
         } catch (err) {
-            setErrorMsg("An error occurred while resetting your password. The link may have expired.");
+            setErrorMsg(err.response?.data?.message ||
+                "Reset link is invalid or expired.");
         } finally {
             setLoading(false);
         }
@@ -188,7 +213,7 @@ export default function ResetPassword({ onNavigateToLogin }) {
                 {/* ── RIGHT PANEL ── */}
                 <div className="rp-right">
                     {success ? (
-                        <SuccessAnimation onRedirect={onNavigateToLogin} />
+                        <SuccessAnimation/>
                     ) : (
                         <>
                             <h1 className="rp-heading">Reset Password</h1>
