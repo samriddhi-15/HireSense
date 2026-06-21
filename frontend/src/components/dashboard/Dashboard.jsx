@@ -28,18 +28,13 @@ function Dashboard() {
 
         if (!user?._id) return;
 
-        const dashboardRes = await axios.get(
-          `http://localhost:4000/api/dashboard/${user._id}`
-        );
+        const dashboardRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/dashboard/${user._id}`);
 
         setDashboardData(
           dashboardRes.data.dashboard
         );
 
-        const progressRes = await axios.get(
-          `http://localhost:4000/api/progress/${user._id}`
-        );
-
+        const progressRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/progress/${user._id}`);
         setProgressData(
           progressRes.data.progress
         );

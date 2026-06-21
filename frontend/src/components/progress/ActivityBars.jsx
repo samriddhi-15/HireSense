@@ -1,5 +1,5 @@
 import axios from "axios";
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './ActivityBars.css';
 
 const ActivityBars = ({ visible }) => {
@@ -15,9 +15,7 @@ const ActivityBars = ({ visible }) => {
 
       try {
 
-        const res = await axios.get(
-          `http://localhost:4000/api/progress/${user._id}`
-        );
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/progress/${user._id}`)
 
         const p = res.data.progress;
 
